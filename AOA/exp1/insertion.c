@@ -2,7 +2,7 @@
 
 int main(){
     int arr[100];
-    int size, i, j;
+    int size, i, j, k;
     printf("Enter array size: ");
     scanf("%d", &size);
     
@@ -16,6 +16,7 @@ int main(){
     for (i = 0; i < size; i++) {
         printf("%d ", arr[i]);
     }
+    printf("\n");
     
     for (i = 1; i < size; i ++){
         int temp = arr[i];
@@ -27,6 +28,12 @@ int main(){
         }
         
         arr[j + 1] = temp;
+        
+        printf("For pass %d: ", i);
+        for (k = 0; k < size; k++) {
+            printf("%d ", arr[k]);
+        }
+        printf("\n");
     }
     
     printf("\nSorted array: ");
