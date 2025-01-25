@@ -19,7 +19,7 @@ int main(){
     for (i = 0; i < size; i++) {
         printf("%d ", arr[i]);
     }
-    printf("\n");
+    printf("\n\n");
     
     do{
         
@@ -39,7 +39,7 @@ int main(){
         
         counter++;
         
-        printf("For pass %d: ", i);
+        printf("For pass %d: ", counter);
         for (k = 0; k < size; k++) {
             printf("%d ", arr[k]);
         }
