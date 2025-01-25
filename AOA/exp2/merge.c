@@ -1,11 +1,12 @@
 #include <stdio.h>
 
-int arr[100];
 int size;
+int arr[100];
+int brr[100];
 int pass = 1;
 
-void quick(int low, int high);
-int partition(int low, int high);
+void mergesort(int low, int high);
+void merge(int low, int mid, int high);
 
 int main() {
 	int i;
@@ -23,43 +24,54 @@ int main() {
 		printf(" %d ", arr[i]);
 	} 
 	printf("\n");
-	quick(0, size - 1);
+	mergesort(0, size - 1);
 	
 	printf("\n");
 	printf("Sorted array: ");
 	for (i = 0; i < size; i++) {
-		printf(" %d ", arr[i]);
+		printf(" %d ", brr[i]);
 	}
 		
 	return 0;
 }
 
-void quick(int low, int high) {
+void mergesort(int low, int high) {
 	if (low < high) {
-		int q = partition(low, high);
+		int mid = (high + low) / 2;
 		
-		quick(low, q - 1);
-		quick(q + 1, high);
+		mergesort(low, mid);
+		mergesort(mid + 1, high);
+		
+		merge(low, mid, high);
 	}
 }
-
-int partition(int low, int high) {
-	int p = arr[low];
-	int i = low;
-	int j;
+void merge(int low, int mid, int high) {
+	int l = low;
+	int r = mid + 1;
 	
-	for(j = i + 1; j <= high; j++) {
-		if (arr[j] < p) {
-			i = i + 1;
-			int temp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = temp;
+	int i = low;
+	while (l <= mid && r <= high) {
+		if (arr[l] < arr[r]) {
+			brr[i++] = arr[l++];
+		} else {
+			brr[i++] = arr[r++];
 		}
 	}
 	
-	int temp = arr[i];
-	arr[i] = p;
-	arr[low] = temp;
+	while (l <= mid) {
+		brr[i++] = arr[l++];
+	}
+	
+	while (r <= high) {
+		brr[i++] = arr[r++];
+	}
+	
+	int j = low;
+	while (j <= high) {
+		arr[j] = brr[j];
+		j++;
+	}
+	
 	
 	j = 0;
 	printf("Pass %d: ", pass++);
@@ -67,6 +79,4 @@ int partition(int low, int high) {
 		printf(" %d ", arr[j++]);
 	}
 	printf("\n");
-	
-	return i;
 }
