@@ -2,6 +2,7 @@
 
 int arr[100];
 int size;
+int pass = 1;
 
 void quick(int low, int high);
 int partition(int low, int high);
@@ -36,6 +37,7 @@ int main() {
 void quick(int low, int high) {
 	if (low < high) {
 		int q = partition(low, high);
+		
 		quick(low, q - 1);
 		quick(q + 1, high);
 	}
@@ -55,9 +57,16 @@ int partition(int low, int high) {
 		}
 	}
 	
-	int temp = arr[p];
-	arr[p] = arr[i];
-	arr[i] = temp;
+	int temp = arr[i];
+	arr[i] = p;
+	arr[low] = temp;
+	
+	j = 0;
+	printf("Pass %d: ", pass++);
+	while (j < size) {
+		printf(" %d ", arr[j++]);
+	}
+	printf("\n");
 	
 	return i;
 }
