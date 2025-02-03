@@ -20,7 +20,7 @@ if opt == 1:
 elif opt == 2:
         print("Product of elements is: ", operations.product(nums))
 elif opt == 3:
-        print("Sum at even indices is: ", opertations.sumEven(nums))
+        print("Sum at even indices is: ", operations.sumEven(nums))
 elif opt == 4:
         nums.append(int(input("Enter number: ")))
         print(nums)
