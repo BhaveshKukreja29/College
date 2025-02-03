@@ -5,7 +5,7 @@ def summation(lst):
 def product(lst):
         res = 1
         for i in lst:
-                res *= lst[i]
+                res *= i
         return res
 
 
