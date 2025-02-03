@@ -11,7 +11,7 @@ def product(lst):
 
 def sumEven(lst):
         sum = 0
-        size = len(lst)
+        size = len(lst) - 1
         for i in range(0, size, 2):
                 sum += lst[i]
         return sum
