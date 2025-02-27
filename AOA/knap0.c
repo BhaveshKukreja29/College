@@ -78,10 +78,6 @@ void knapsack10(int size, int m) {
                 keep[i][j] = 'x';
             }
         }
-        
-       for (int j = 0; j <= m; j++) {
-           printf("Index %d and %d: %d\n", i, j, DP[i][j]);
-       }
     }
     
     printf("\nKnapsack table\n");
@@ -104,4 +100,18 @@ void knapsack10(int size, int m) {
         printf("\n");
     }
     printf("+---------------------------------------------------------+\n"); 
+    
+    printf("\nTracing by element no.\n");
+    int i = size;
+    int j = m;
+    
+    while (j > 0) {
+        if (j > 0 && keep[i][j] == '^') {
+            printf(" %d ", i);
+            j -= arr[i - 1].weight;
+        }
+        else {
+            i--;
+        }
+    }
 }
