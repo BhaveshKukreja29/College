@@ -1,117 +1,117 @@
 #include <stdio.h>
 
-typedef struct Object {
-    int profit;
-    int weight;
-} object;
+//Set initial distances for all vertices: 0 for the source vertex, and infinity for all the other.
+//Choose the unvisited vertex with the shortest distance from the start to be the current vertex.
+//So the algorithm will always start with the source as the current vertex.
+//For each of the current vertex's unvisited neighbor vertices, calculate the distance from the source and update the distance 
+//if the new, calculated, distance is lower.
+//We are now done with the current vertex, so we mark it as visited. A visited vertex is not checked again.
+//Go back to step 2 to choose a new current vertex, and keep repeating these steps until all vertices are visited.
+//In the end we are left with the shortest path from the source vertex to every other vertex in the graph.
 
-object arr[10];
+#define INFINITY 10000
+#define NILL -10000
 
-void knapsack10(int size, int m);
-void print2D(int a[][10], int size, int m);
-void printchar2D(char a[][10], int size, int m);
+typedef struct {
+    int parent;
+    int visited;
+    int costFromSource;
+} node;
 
-void main() {
-    int size;
-    int m;
-    printf("Enter number of elements (less than 10): ");
-    scanf("%d", &size);
+int n;
+node arr[20];
+int adj[20][20];
+
+void dijkstra(src);
+
+int main()
+{
+    printf("Enter number of edges: ");
+    scanf("%d", &n);
     
-    for (int i = 0; i < size; i++) {
-        printf("Enter profit of %d element: ", i + 1);
-        scanf("%d", &arr[i].profit);
-        
-        printf("Enter weight of %d element: ", i + 1);
-        scanf("%d", &arr[i].weight);
-        
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("Enter weight for edge (%d, %d): ", i, j);
+            scanf("%d", &adj[i][j]);
+        }
+    }
+    
+    printf("Adjacency matrix\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf(" %-4d ", adj[i][j]);
+        }
         printf("\n");
     }
     
-    printf("\n+------------+------------+------------+\n");
-    printf("| Element No.|   Profit   |   Weight   |\n");
-    printf("+------------+------------+------------+\n");
-
-    for (int i = 0; i < size; i++) {
-        printf("| %-10d | %-10d | %-10d |\n", i + 1, arr[i].profit, arr[i].weight);
+    printf("Available vertices\n");
+    for (int i = 0; i < n; i++) {
+        printf(" %d ", i);
     }
-    printf("+------------+------------+------------+\n\n");
     
-    printf("Enter the capacity of sack: ");
-    scanf("%d", &m);
+    int src;
+    printf("\nEnter source vertex: ");
+    scanf("%d", &src);
     
-    knapsack10(size, m);
+    if (src >= n) {
+        printf("Error, vertex doesn't exist.\n");
+        return 0;
+    }
+    
+    dijkstra(src);
+    
+    return 0;
 }
 
-void knapsack10(int size, int m) {
+void dijkstra(src) {
+    arr[src].visited = 0;
+    arr[src].parent = NILL;
+    arr[src].costFromSource = 0;
     
-    int DP[size + 1][m + 1];
-    char keep[size + 1][m + 1];
-    
-    for (int i = 0; i <= size; i++) {
-        for (int j = 0; j <= m; j++) {
-            DP[i][j] = 0;
+    for (int i = 0; i < n; i++) {
+        if (i != src) {
+            arr[i].visited = 0;
+            arr[i].parent = NILL;
+            arr[i].costFromSource = INFINITY;
         }
     }
     
-    for (int i = 0; i <= size; i++) {
-        for (int j = 0; j <= m; j++) {
-            keep[i][j] = '-';
+    current = src;
+    int till = 0;
+    for (int j = 0; j < n; j++) {
+        int min;
+        int idx;
+        if (j != current && min > adj[current][j]) {
+            min = adj[current][j];
+            idx = j;
         }
+        
+        till += min;
+        
+        arr[j].visited = 1;
+        arr[j].parent = current;
+        arr[j].costFromSource = till;
+        
+        current = j;
+        
+        
     }
     
-    for (int i = 1; i <= size; i++) {
-        for (int j = 1; j <= m; j++) {
-            if (arr[i - 1].weight <= j) {
-                if (arr[i - 1].profit + DP[i - 1][j - arr[i - 1].weight] > DP[i - 1][j]) {
-                    DP[i][j] = arr[i - 1].profit + DP[i - 1][j - arr[i - 1].weight];
-                    keep[i][j] = '^';
-                }
-                
-                else {
-                    DP[i][j] = DP[i - 1][j];
-                    keep[i][j] = 'x';
-                }
-            }
-            
-            else {
-                DP[i][j] = DP[i - 1][j]; 
-                keep[i][j] = 'x';
-            }
-        }
-    }
-    
-    printf("\nKnapsack table\n");
-    printf("+---------------------------------------------------------+\n");
-    for (int i = 0; i <= size; i++) {
-        for (int j = 0; j <= m; j++) {
-            printf("| %-2d |", DP[i][j]);
-        }
-        printf("\n");
-    }    
-    printf("+---------------------------------------------------------+\n");
-    
-    printf("\n");
-    printf("\nKeep table\n");
-    printf("+---------------------------------------------------------+\n");
-    for (int i = 0; i <= size; i++) {
-        for (int j = 0; j <= m; j++) {
-            printf("| %-2c |", keep[i][j]);
-        }
-        printf("\n");
-    }
-    printf("+---------------------------------------------------------+\n"); 
-    
-    printf("\nTracing by element no.\n");
-    int i = size;
-    int j = m;
-    
-    while (j > 0) {
-        if (j > 0 && keep[i][j] == '^') {
-            printf(" %d ", i);
-            j -= arr[i - 1].weight;
-        }
-        else {
-            i--;
-        }
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
