@@ -35,7 +35,7 @@ int main(){
     
     int output[n];
     int seeks[n];
-    int sub;
+    int sub = 0;
     
     for (int i = 0; i < n; i++) {
         int min = 10000;
@@ -56,7 +56,7 @@ int main(){
         }
         
         arr[ind].visited = 1;
-        seeks[i] = abs(arr[ind].val - head);
+        seeks[i] = abs(temp - head);
         
         head = temp;
         
