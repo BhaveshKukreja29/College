@@ -12,6 +12,10 @@ typedef struct {
 
 int main(){
     int n;
+    int range;
+    printf("Enter the available number of tracks: ");
+    scanf("%d", &range);
+    
     printf("Enter number of requests: ");
     scanf("%d", &n);
     
@@ -30,12 +34,20 @@ int main(){
     scanf("%d", &head);
     
     int output[n];
+    int seeks[n];
+    int sub;
     
     for (int i = 0; i < n; i++) {
         int min = 10000;
         int temp = -1;
         int ind = -1;
         for (int j = 0; j < n; j++) {
+            if ((arr[j].visited == 0) && arr[j].val > range) {
+                printf("\n%d is out of range.\n\n", arr[j].val);
+                sub++;
+                arr[j].visited = 1;
+                continue;
+            }
             if ((arr[j].visited == 0) && (min > abs(arr[j].val - head))) {
                 min = abs(arr[j].val - head);
                 ind = j;
@@ -44,14 +56,15 @@ int main(){
         }
         
         arr[ind].visited = 1;
+        seeks[i] = abs(arr[ind].val - head);
+        
         head = temp;
         
         output[i] = temp;
     }
     
-    for (int j = 0; j < n; j++) {
-        printf(" %d ", output[j]);
-        
+    for (int j = 0; j < n - sub; j++) {
+        printf("Position: %d , Seektime: %d\n", output[j], seeks[j]);
     }
     
     return 0;
