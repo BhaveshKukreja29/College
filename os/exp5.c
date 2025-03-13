@@ -40,7 +40,63 @@ int main() {
     printf("Enter the string of requests: ");
     scanf("%s", req);
     
-    printf("%s", req);
+    int count;
+    for (int i = 0; req[i] != '\0'; i++) {
+        count += 1;
+    }
+    
+    char output[count];
+    
+    printf("Frame condition at each step: \n");
+    for (int i = 0; req[i] != '\0'; i++) {
+        int temp = 0;
+        for (int j = 0; j < n; j++) {
+            if (req[i] == frames[j].page) {
+                temp = 1;
+                break;
+            }
+        }
+        
+        if (temp == 1) output[i] = 'H';
+        
+        else {
+            output[i] = 'M';
+            int max = -1;
+            int ind;
+            
+            for (int j = 0; j < n; j++) {
+                if (frames[j].page == '-') {
+                    ind = j;
+                    break;
+                }
+                else if (max < frames[j].timespent) {
+                    max = frames[j].timespent;
+                    ind = j;
+                }
+            }
+            
+            frames[ind].page = req[i];
+            frames[ind].timespent = 0;
+        }
+        
+        
+        for (int j = 0; j < n; j++) {
+            printf("| F%d |", j + 1);
+            printf(" %c |\n", frames[j].page);
+        }
+        
+        
+        printf("\n");
+        
+        for (int j = 0; j < n; j++) {
+            frames[j].timespent += 1;
+        }
+    }
+    
+    for (int i = 0; req[i] != '\0'; i++) {
+        printf("%c ", output[i]);
+    }
+    
     
     
     return 0;
