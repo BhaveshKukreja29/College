@@ -21,7 +21,7 @@ int main(){
     
     track arr[n];
 
-    
+    printf("\n");
     for (int i = 0; i < n; i++) {
         printf("Enter the track number: ");
         scanf("%d", &arr[i].val);
@@ -42,7 +42,7 @@ int main(){
         int temp = -1;
         int ind = -1;
         for (int j = 0; j < n; j++) {
-            if ((arr[j].visited == 0) && arr[j].val > range) {
+            if ((arr[j].visited == 0) && arr[j].val >= range) {
                 printf("\n%d is out of range.\n\n", arr[j].val);
                 sub++;
                 arr[j].visited = 1;
@@ -63,9 +63,18 @@ int main(){
         output[i] = temp;
     }
     
+    printf("\n");
+    
     for (int j = 0; j < n - sub; j++) {
         printf("Position: %d , Seektime: %d\n", output[j], seeks[j]);
     }
+    
+    int total = 0;
+    for (int j = 0; j < n - sub; j++) {
+        total += seeks[j];
+    }
+    
+    printf("\nTotal seek time: %d", total);
     
     return 0;
 }
