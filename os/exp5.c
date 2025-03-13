@@ -53,12 +53,14 @@ int main() {
         for (int j = 0; j < n; j++) {
             if (req[i] == frames[j].page) {
                 temp = 1;
+                frames[j].timespent = 0;
                 break;
             }
         }
         
-        if (temp == 1) output[i] = 'H';
-        
+        if (temp == 1) {
+            output[i] = 'H';
+        }
         else {
             output[i] = 'M';
             int max = -1;
@@ -93,11 +95,21 @@ int main() {
         }
     }
     
-    for (int i = 0; req[i] != '\0'; i++) {
+    int hit = 0;
+    int miss = 0;
+    int i;
+    for (i = 0; req[i] != '\0'; i++) {
         printf("%c ", output[i]);
+        if (output[i] == 'H') hit += 1;
+        else miss += 1;
     }
     
+    printf("\n");    
     
+    printf("Number of hits: %d\n", hit);
+    printf("Number of miss: %d\n", miss);
+    printf("Number of hit ratio: %.2f%%\n", ((float)hit / count) * 100); 
+    printf("Number of miss ratio: %.2f%%\n", ((float)miss / count) * 100);
     
     return 0;
 }
