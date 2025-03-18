@@ -6,43 +6,43 @@
  6 ● constructor to set id,
  7 ● set_name( ), get_name ( ), get_id( ) methods (instance method)
  8 ● set_emp_count ( ) (class method)"""
- 9 class Employee:
-10      empcount = 0
-11
-12      @classmethod
-13      def set_emp_count(cls):
-14         cls.empcount += 1
-15
-16      def __init__(self):
-17          self.set_emp_count()
-18          self.id = self.empcount + 1000
-19          self.name = self.set_name()
-20          
-21      def set_name(self):
-22          name = input("Enter employee name: ")
-23          return name
-24          
-25      def get_name(self):
-26          print(f"Name is: {self.name}")
-27          
-28      def get_id(self):
-29         print(f"Id is: {self.id}")
-30         print(f"Id is: {self.id}")
-31         
-32 employees = []
-33 while True:
-34     ch = int(input("Enter 1 to add employee, 2 to see all employees and 3 to exi>
-35     
-36     if ch == 1:
-37         employees.append(Employee())
-38     elif ch == 2:
-39         print()
-40         for i in employees:
-41             print(f"Name: {i.name}, ID: {i.id}")
-42         print()
-43     elif ch == 3:
-44         break
-45     else:
-46         print("Invalid choice, try again")
-47
+class Employee:
+    empcount = 0
+
+    @classmethod
+    def set_emp_count(cls):
+        cls.empcount += 1
+
+    def __init__(self):
+        self.set_emp_count()
+        self.id = self.empcount + 1000
+        self.name = self.set_name()
+
+    def set_name(self):
+        name = input("Enter employee name: ")
+        return name
+          
+    def get_name(self):
+        print(f"Name is: {self.name}")
+          
+    def get_id(self):
+        print(f"Id is: {self.id}")
+        print(f"Id is: {self.id}")
+         
+employees = []
+while True:
+    ch = int(input("Enter 1 to add employee, 2 to see all employees and 3 to exit"))
+     
+    if ch == 1:
+        employees.append(Employee())
+    elif ch == 2:
+        print()
+        for i in employees:
+            print(f"Name: {i.name}, ID: {i.id}")
+        print()
+    elif ch == 3:
+        break
+    else:
+        print("Invalid choice, try again")
+
 

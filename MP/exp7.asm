@@ -92,7 +92,7 @@ START:
         int 21h
 
         dec si
-        
+
 
         cmp si, 1000h
         jnz printreverse
@@ -100,48 +100,75 @@ START:
     mov dl, [si]
     mov ah, 02h
     int 21h
-        
+
     ; check palindrome
+    mov di, si
+    mov cl, count
+    mov ch, 00h
+
+    add di, cx
     dec di
     check:
         mov al, [si]
         mov bl, [di]
+
+	cmp al, bl
+	jnz notpal
+
         inc si
         dec di
 
-        cmp al, bl
-        jz check
+	cmp si, di
+	jbe check
 
-        cmp di, 1999h
-        jz pal
-
+    lea dx, msg8
+    mov ah, 09h
+    int 21h
+    jmp next
 
     notpal:
         lea dx, msg9
         mov ah, 09h
         int 21h
 
-        jmp next
-        
-
-    pal:
-        lea dx, msg8
-        mov ah, 09h
-        int 21h
-        
-
     next:
 
     ; check if character entered is there or not
+    lea dx, msg5
+    mov ah, 09h
+    int 21h
 
+    mov ah, 01h
+    int 21h
+    mov bl, al
 
+    mov si, 1000h
+    mov cl, count
+    mov ch, 00h
 
+    search:
+        mov al, [si]
+
+        cmp al, bl
+        jz charfound
+
+        inc si
+        loop search
+
+    lea dx, msg7
+    mov ah, 09h
+    int 21h
+    jmp last
+
+    charfound:
+        lea dx, msg6
+        mov ah, 09h
+        int 21h
+
+   last:
 
     mov ah, 4ch
     int 21h
-
-    
-
 
 CODE ENDS
 END START

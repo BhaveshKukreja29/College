@@ -1,0 +1,180 @@
+DATA SEGMENT
+    QUOTIENT DW ?
+    REMAINDER DW ?
+    MSG0 DB 0DH, OAH, "BHAVESH KUKREJA 2303080$"
+    MSG1 DB 0DH,0AH, "ENTER FIRST NUMBER $"
+    MSG2 DB 0DH,0AH, "ENTER SECOND NUMBER $"
+    MSG3 DB 0DH,0AH, "REMAINDER IS $"
+    MSG4 DB 0DH,0AH, "QUOTIENT IS $"
+DATA ENDS
+
+CODE SEGMENT
+ASSUME CS: CODE, DS:DATA
+
+START:
+    MOV AX,DATA
+    MOV DS,AX
+
+    MOV DX,OFFSET MSG0
+    MOV AH,09H
+    INT 21H
+
+    MOV DX,OFFSET MSG1
+    MOV AH,09H
+    INT 21H
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV BH,00H
+    MOV BL,AL
+    ROL BX,12
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV AH,00H
+    ROL AX,8
+    ADD BX,AX
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV AH,00H
+    ROL AX,4
+    ADD BX,AX
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV AH,00H
+    ADD BX,AX
+
+    MOV DX,OFFSET MSG2
+    MOV AH,09H
+    INT 21H
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV CH,00H
+    MOV CL,AL
+    ROL CX,12
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV AH,00H
+    ROL AX,8
+    ADD CX,AX
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV AH,00H
+    ROL AX,4
+    ADD CX,AX
+
+    MOV AH,01H
+    INT 21H
+    CALL InputDigit
+    MOV AH,00H
+    ADD CX,AX
+
+    MOV DX,0000H
+    MOV AX,BX
+    DIV CX
+    MOV QUOTIENT,AX
+    MOV REMAINDER,DX
+
+    MOV DX,OFFSET MSG4
+    MOV AH,09H
+    INT 21H
+
+    MOV BX,QUOTIENT
+    AND BX,0F000H
+    ROR BX,12
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV BX,QUOTIENT
+    AND BX,0F00H
+    ROR BX,8
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV BX,QUOTIENT
+    AND BX,00F0H
+    ROR BX,4
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV BX,QUOTIENT
+    AND BX,000FH
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV DX,OFFSET MSG3
+    MOV AH,09H
+    INT 21H
+
+    MOV BX,REMAINDER
+    AND BX,0F000H
+    ROR BX,12
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV BX,REMAINDER
+    AND BX,0F00H
+    ROR BX,8
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV BX,REMAINDER
+    AND BX,00F0H
+    ROR BX,4
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV BX,REMAINDER
+    AND BX,000FH
+    CALL OutputDigit
+    MOV DL,BL
+    MOV AH,02H
+    INT 21H
+
+    MOV AH,4CH
+    INT 21H
+
+OutputDigit PROC
+    CMP BL,0AH
+    JC L2
+    ADD BL,07H
+L2: ADD BL,30H
+    RET
+OutputDigit ENDP
+
+InputDigit PROC
+    CMP AL,41H
+    JC L1
+    SUB AL,07H
+L1: SUB AL,30H
+    RET
+InputDigit ENDP
+
+CODE ENDS
+END START

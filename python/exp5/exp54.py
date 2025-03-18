@@ -43,7 +43,7 @@ def main():
         return hp.disconnect()
         
     elif choice.lower() == "ibm":
-        ibm = IMB()
+        ibm = IBM()
         while True:
             text = input("Enter some text to print: ")
             ibm.printit(text)
