@@ -6,7 +6,7 @@
 
 #define UP '^'
 #define LEFT '<'
-#define DIAGONAL '\'
+#define DIAGONAL '\\'
 
 void printLCS(char direction[MAX][MAX], char *X, int i, int j) {
     if (i == 0 || j == 0) {

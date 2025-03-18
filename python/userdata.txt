@@ -1,0 +1,5 @@
+Name: bhavesh
+Gender: Male
+Age: 20
+Category: Student
+Terms: Accepted
