@@ -49,6 +49,10 @@ int main()
     
     printf("\nShortest distances from vertex %d:\n", src);
     for (int i = 0; i < n; i++) {
+        if (arr[i].costFromSource == 1000) {
+            printf("To %d: %s\n", i, "infinity");
+            break;
+        }
         printf("To %d: %d\n", i, arr[i].costFromSource);
     }
     
