@@ -37,7 +37,7 @@ void floyd(int v) {
             }
         }
         
-        printf("K = %d: \n", k);
+        printf("K = %d\n", k);
         printf("Distance Matrix:\n");
         for (int i = 0; i < v; i++) {
             for (int j = 0; j < v; j++) {
