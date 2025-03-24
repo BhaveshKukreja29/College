@@ -4,6 +4,7 @@ int D[100][100];
 int P[100][100];
 
 void floyd(int v);
+void printPath(int source, int destination, int v);
 
 void main() {
     int v;
@@ -53,5 +54,26 @@ void floyd(int v) {
             }
             printf("\n");
         }
+    }
+
+    for (int i = 0; i < v; i++) {
+        for (int j = 0; j < v; j++) {
+            if (i != j && D[i][j] != 1000) {
+                printf("Shortest path from %d to %d: ", i, j);
+                printPath(i, j, v);
+                printf("\n");
+            }
+        }
+    }
+}
+
+void printPath(int source, int destination, int v) {
+    if (source == destination) {
+        printf("%d ", source);
+    } else if (P[source][destination] == -1) {
+        printf("No path");
+    } else {
+        printPath(source, P[source][destination], v);
+        printf("%d ", destination);
     }
 }
