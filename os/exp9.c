@@ -8,13 +8,22 @@ int arr[100];
 int brr[100];
 
 int main() {
-    int n;
+    int n, range;
+    printf("Enter the available number of tracks: ");
+    scanf("%d", &range);
+
     printf("Enter number of requests: ");
     scanf("%d", &n);
 
-    printf("\nEnter the track requests: ");
+    int sub = 0;
+    printf("\nEnter the track requests:\n");
     for (int i = 0; i < n; i++) {
         scanf("%d", &arr[i]);
+        if (arr[i] < 0 || arr[i] >= range) {
+            printf("%d is out of range.\n", arr[i]);
+            arr[i] = -1;
+            sub++;
+        }
     }
 
     int head;
@@ -25,33 +34,41 @@ int main() {
     printf("Enter direction (L for left, R for right): ");
     scanf(" %c", &direction);
 
-    mergesort(0, n - 1);
+    int valid[100];
+    int k = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] != -1) {
+            valid[k++] = arr[i];
+        }
+    }
+
+    valid[k++] = head;
+    for (int i = 0; i < k; i++) arr[i] = valid[i];
+
+    mergesort(0, k - 1);
 
     int idx = -1;
-    for (int i = 0; i < n; i++) {
-        if (arr[i] >= head) {
+    for (int i = 0; i < k; i++) {
+        if (arr[i] == head) {
             idx = i;
             break;
         }
     }
-    if (idx == -1) {
-        idx = n - 1;
-    }
 
     int temp, total = 0, prev = head;
-    printf("Seek sequence: %d", head);
+    printf("Seek sequence:\n%d", head);
 
     if (direction == 'R' || direction == 'r') {
-        //move right till last
-        temp = idx;
-        while (temp < n) {
+        //move right until last request
+        temp = idx + 1;
+        while (temp < k) {
             total += abs(arr[temp] - prev);
             printf(" -> %d", arr[temp]);
             prev = arr[temp];
             temp++;
         }
 
-        //left until first
+        //move left until first request
         temp = idx - 1;
         while (temp >= 0) {
             total += abs(arr[temp] - prev);
@@ -60,7 +77,7 @@ int main() {
             temp--;
         }
     } else {
-        //left till first
+        //move left until first request
         temp = idx - 1;
         while (temp >= 0) {
             total += abs(arr[temp] - prev);
@@ -69,9 +86,9 @@ int main() {
             temp--;
         }
 
-        //right till last
-        temp = idx;
-        while (temp < n) {
+        //move right until last request
+        temp = idx + 1;
+        while (temp < k) {
             total += abs(arr[temp] - prev);
             printf(" -> %d", arr[temp]);
             prev = arr[temp];
@@ -80,7 +97,8 @@ int main() {
     }
 
     printf("\nTotal seek time: %d\n", total);
-    
+    printf("Average seek time: %.2f\n", (float)total / (n - sub));
+
     return 0;
 }
 
