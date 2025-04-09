@@ -36,13 +36,14 @@ int main(){
     int output[n];
     int seeks[n];
     int sub = 0;
+    int validIndex = 0;
     
     for (int i = 0; i < n; i++) {
         int min = 10000;
         int temp = -1;
         int ind = -1;
         for (int j = 0; j < n; j++) {
-            if ((arr[j].visited == 0) && arr[j].val >= range) {
+            if ((arr[j].visited == 0) && (arr[j].val < 0 || arr[j].val >= range)) {
                 printf("\n%d is out of range.\n\n", arr[j].val);
                 sub++;
                 arr[j].visited = 1;
@@ -54,27 +55,33 @@ int main(){
                 temp = arr[j].val;
             }
         }
+
+        if (ind == -1) {
+            continue;
+        }
         
         arr[ind].visited = 1;
-        seeks[i] = abs(temp - head);
-        
+        seeks[validIndex] = abs(temp - head);
         head = temp;
-        
-        output[i] = temp;
+        output[validIndex] = temp;
+        validIndex++;
     }
     
     printf("\n");
     
-    for (int j = 0; j < n - sub; j++) {
+    for (int j = 0; j < validIndex; j++) {
         printf("Position: %d , Seektime: %d\n", output[j], seeks[j]);
     }
     
     int total = 0;
-    for (int j = 0; j < n - sub; j++) {
+    for (int j = 0; j < validIndex; j++) {
         total += seeks[j];
     }
     
     printf("\nTotal seek time: %d", total);
-    
+    if (validIndex > 0) {
+        printf("\nAverage seek time: %.2f\n", (float)total / validIndex);
+    }
+
     return 0;
 }
