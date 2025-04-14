@@ -15,15 +15,8 @@ int main()
 {
     int src, sink;
     
-    //take input
     printf("Enter the number of vertices: ");
     scanf("%d", &size);
-    
-    for (int i = 0; i < size; i++) 
-    {
-        visited[i] = 0;
-        parent[i] = -1;
-    }
     
     for (int i = 0; i < size; i++) 
     {
@@ -40,17 +33,36 @@ int main()
     
     printf("Enter sink: ");
     scanf("%d", &sink);
-    
-    int totalFlow = fordfulkerson(src, sink);
-    
-    printf("Total Flow is: %d", totalFlow);
-    
+
+    if (src >= size || sink >= size || src < 0 || sink < 0) 
+    {
+        printf("Invalid source or sink. Exiting...\n");
+        return 1;
+    }
+
+    else if (src == sink)
+    {
+        printf("Source and sink is the same vertex.\n\nTotal Flow is: 0\n");
+    }
+    else
+    {
+        int totalFlow = fordfulkerson(src, sink);
+        
+        printf("Total Flow is: %d\n", totalFlow);
+    }
     return 0;
 }
 
 int fordfulkerson(int src, int sink)
 {
     int totalFlow = 0;
+
+    for (int i = 0; i < size; i++) 
+    {
+        visited[i] = 0;
+        parent[i] = -1;
+    }
+
     int pathExist = dfs(src, sink);
     
     while(pathExist) 
@@ -68,13 +80,14 @@ int fordfulkerson(int src, int sink)
         
         while(currentParent != -1) 
         {
-            if (bottleneck >= remain[currentParent][currentChild]) 
+            if (bottleneck > remain[currentParent][currentChild]) 
             {
                 bottleneck = remain[currentParent][currentChild];
             }
             currentChild = currentParent;
             currentParent = parent[currentParent];
         }
+
         //Initially I forgot these two lines which caused an infinity loop
         currentChild = sink;
         currentParent = parent[sink];
