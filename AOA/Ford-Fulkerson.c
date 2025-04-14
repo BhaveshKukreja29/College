@@ -10,6 +10,7 @@ int parent[MAX];
 
 int dfs(int s, int v);
 int fordfulkerson(int src, int sink);
+void printPath(int sink);
 
 int main() 
 {
@@ -46,6 +47,8 @@ int main()
     }
     else
     {
+        printf("\nIterations:\n\n");
+        
         int totalFlow = fordfulkerson(src, sink);
         
         printf("Total Flow is: %d\n", totalFlow);
@@ -105,6 +108,9 @@ int fordfulkerson(int src, int sink)
             currentParent = parent[currentParent];
         }
         
+        printPath(sink);
+        printf("Current Flow: %d\n\n", totalFlow);
+        
         //clear history
         for (int i = 0; i < size; i++) 
         {
@@ -142,5 +148,29 @@ int dfs(int s, int v)
         }
         
         return 0;
+    }
+}
+
+void printPath(int sink)
+{
+    int path[size], pathLen = 0;
+    int current = sink;
+    
+    while (current != -1)
+    {
+        path[pathLen++] = current;
+        current = parent[current];
+    }
+    
+    for (int i = pathLen - 1; i >= 0; i--)
+    {
+        if (i == 0)
+        {
+            printf("%d\n", path[i]);
+        }
+        else
+        {
+            printf("%d -> ", path[i]);
+        }
     }
 }
