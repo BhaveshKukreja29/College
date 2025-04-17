@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>User Info</title></head>
+<body>
+    <h2>Enter User Info</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Stored Users</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Category</th><th>Agreement</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td><td>{{ user.name }}</td><td>{{ user.age }}</td><td>{{ user.gender }}</td>
+            <td>{{ user.category }}</td><td>{{ user.agreement }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
