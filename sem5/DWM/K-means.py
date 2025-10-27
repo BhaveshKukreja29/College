@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = pd.read_csv('placement.csv')
+data = pd.read_csv('college_placement.csv')
 data.drop(columns=["College_ID"])
 
 data["Internship_Experience"] = data["Internship_Experience"].map({"Yes": 1, "No": 0})

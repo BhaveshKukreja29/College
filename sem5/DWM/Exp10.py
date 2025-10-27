@@ -1,7 +1,7 @@
 import pandas as pd
 from mlxtend.frequent_patterns import apriori, association_rules
 
-df = pd.read_csv('your_file_path.csv')
+df = pd.read_csv('college_placement.csv')
 
 df['CGPA_Range'] = pd.cut(df['CGPA'], bins=[0, 6, 8, 10], labels=['Low', 'Medium', 'High'])
 df['IQ_Range'] = pd.cut(df['IQ'], bins=[0, 100, 120, 150], labels=['Average', 'High', 'Very_High'])
