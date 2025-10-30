@@ -1,45 +1,54 @@
 import numpy as np
-import pandas as pd
 
-def euclidean_distance(a, b):
-    return np.sqrt(np.sum((a - b) ** 2))
-
-def linkage_distance(cluster1, cluster2, X, method):
-    distances = [euclidean_distance(X[i], X[j]) for i in cluster1 for j in cluster2]
-    if method == 'single':
-        return np.min(distances)
-    elif method == 'complete':
-        return np.max(distances)
-    else:
-        return np.mean(distances)
-
-def compute_distance_table(clusters, X, method):
-    n = len(clusters)
-    dist_table = np.zeros((n, n))
-    for i in range(n):
-        for j in range(n):
-            if i != j:
-                dist_table[i][j] = linkage_distance(clusters[i], clusters[j], X, method)
-            else:
-                dist_table[i][j] = np.inf
-    return pd.DataFrame(dist_table)
-
-def hierarchical_clustering(X, method):
+def simple_hierarchical_clustering(X, method='single'):
     clusters = [[i] for i in range(len(X))]
     step = 1
+    
     while len(clusters) > 1:
-        print(f"\nStep {step}:")
-        dist_table = compute_distance_table(clusters, X, method)
-        print(dist_table)
+        min_distance = float('inf')
+        closest_pair = (-1, -1)
         
-        # find smallest distance
-        i, j = np.unravel_index(np.argmin(dist_table.values), dist_table.shape)
-        clusters[i] = clusters[i] + clusters[j]
+        for i in range(len(clusters)):
+            for j in range(i + 1, len(clusters)):
+                point_distances = []
+                for p1_idx in clusters[i]:
+                    for p2_idx in clusters[j]:
+                        dist = np.sqrt(np.sum((X[p1_idx] - X[p2_idx])**2))
+                        point_distances.append(dist)
+                
+                if method == 'single':
+                    current_distance = np.min(point_distances)
+                elif method == 'complete':
+                    current_distance = np.max(point_distances)
+                elif method == 'average':
+                    current_distance = np.mean(point_distances)
+                else:
+                    raise ValueError("Method must be 'single', 'complete', or 'average'")
+
+                if current_distance < min_distance:
+                    min_distance = current_distance
+                    closest_pair = (i, j)
+
+        i, j = closest_pair
+        print(f"Step {step}: Merging clusters {clusters[i]} and {clusters[j]} (Distance: {min_distance:.2f})")
+        
+        clusters[i].extend(clusters[j])
         del clusters[j]
-        print(f"Merged clusters {i} & {j} -> New cluster: {clusters[i]}")
+        
+        print(f"Current clusters: {clusters}\n")
         step += 1
+        
+    print(f"Final Result: {clusters[0]}")
     return clusters
 
-# ===== Demo =====
+# --- Demo ---
 X = np.array([[1, 2], [2, 3], [5, 8], [6, 9]])
-hierarchical_clustering(X, 'single')
+
+print("--- Running SINGLE Linkage Clustering ---")
+simple_hierarchical_clustering(X, method='single')
+
+# print("\n--- Running COMPLETE Linkage Clustering ---")
+# simple_hierarchical_clustering(X, method='complete')
+
+# print("\n--- Running AVERAGE Linkage Clustering ---")
+# simple_hierarchical_clustering(X, method='average')

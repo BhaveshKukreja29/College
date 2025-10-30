@@ -1,24 +1,32 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score
+import numpy as np
 
-try:
-    data = pd.read_csv("college_placement.csv")
-except FileNotFoundError:
-    print("Error: 'college_placement.csv' not found. Please check the file path.")
-    exit()
+data = pd.read_csv("college_placement.csv")
 
-X = data[['CGPA', 'IQ']]
-y = data['Placement']
+train = data.sample(frac=0.8, random_state=1)
+test = data.drop(train.index)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+priors = train["Placement"].value_counts(normalize=True)
+means = train.groupby("Placement").mean()
+vars_ = train.groupby("Placement").var()
 
-model = GaussianNB()
-model.fit(X_train, y_train)
+def prob(x, mean, var):
+    if var == 0:
+        return 1 if x == mean else 1e-9
+    numerator = np.exp(-(x - mean)**2 / (2 * var))
+    denominator = np.sqrt(2 * np.pi * var)
+    return numerator / denominator
 
-y_pred = model.predict(X_test)
+preds = []
+for _, row in test.iterrows():
+    scores = {}
+    for c in priors.index:
+        score = np.log(priors[c])
+        for col in train.columns[:-1]:
+            feature_prob = prob(row[col], means.loc[c, col], vars_.loc[c, col])
+            score *= np.log(feature_prob)
+        scores[c] = score
+    preds.append(max(scores, key=scores.get))
 
-acc = accuracy_score(y_test, y_pred)
-
-print(f"The accuracy of the Naive Bayes model is: {acc}")
+acc = np.mean(np.array(preds) == test["Placement"].values)
+print(f"Accuracy: {acc}")

@@ -1,46 +1,34 @@
 import pandas as pd
-from sklearn.cluster import KMeans
+import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-# 1. Load your data
-# This assumes your data has 'CGPA' and 'IQ' columns.
-try:
-    data = pd.read_csv("college_placement.csv")
-except FileNotFoundError:
-    print("Error: 'college_placement.csv' not found. Please check the file path.")
-    exit()
+data = pd.read_csv("college_placement.csv")
+features = data[['CGPA', 'IQ']].values
+K = 3
 
-# 2. Select the features for clustering
-# We'll cluster students based on their CGPA and IQ.
-features = data[['CGPA', 'IQ']]
+def euclidean_distance(p1, p2):
+    return np.sqrt(np.sum((p1 - p2)**2))
 
-# 3. Create and train the K-Means model
-# We'll create 3 clusters as specified in the problem.
-# 'n_init=10' is standard practice to get more stable results.
-kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
-kmeans.fit(features)
+centroids = features[np.random.choice(features.shape[0], K, replace=False)]
+clusters = np.zeros(len(features))
 
-# 4. Get the results
-# Add the cluster labels back to your original dataframe.
-data['cluster'] = kmeans.labels_
-# Get the coordinates of the final cluster centers.
-centroids = kmeans.cluster_centers_
+for _ in range(10): 
+    for i, point in enumerate(features):
+        distances = [euclidean_distance(point, centroid) for centroid in centroids]
+        clusters[i] = np.argmin(distances)
 
-# --- Print the Output ---
-print("--- K-Means Final Results ---")
-print("Final Centroids (CGPA, IQ):")
-print(centroids)
-print("\nFirst 10 students with their assigned cluster:")
-print(data.head(10))
+    for i in range(K):
+        points_in_cluster = features[clusters == i]
+        if len(points_in_cluster) > 0:
+            centroids[i] = np.mean(points_in_cluster, axis=0)
 
+colors = ['r', 'g', 'b']
+for i in range(K):
+    points = features[clusters == i]
+    plt.scatter(points[:, 0], points[:, 1], c=colors[i], label=f'Cluster {i+1}')
 
-# 5. Visualize the clusters
-# This is required by the guidelines.
-plt.figure(figsize=(10, 6))
-sns.scatterplot(data=data, x='CGPA', y='IQ', hue='cluster', palette='viridis', s=100, alpha=0.7)
-plt.scatter(centroids[:, 0], centroids[:, 1], s=300, c='red', marker='X', label='Centroids')
-plt.title('K-Means Clustering of Students')
+plt.scatter(centroids[:, 0], centroids[:, 1], marker='X', s=200, c='black', label='Centroids')
+plt.title('K-Means Clustering')
 plt.xlabel('CGPA')
 plt.ylabel('IQ')
 plt.legend()
