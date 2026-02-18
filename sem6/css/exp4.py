@@ -22,15 +22,8 @@ print(phi_n)
 e = calc_e(phi_n)
 print(e)
 
-i = 3
-while True:
-    ans = (i * e) // phi_n
+d = pow(e, - 1, phi_n)
 
-    if ans == 1:
-        break
-    i += 1
-
-d = i
 print(d)
 
 public_key = [e, n]
@@ -38,10 +31,10 @@ private_key = [d, n]
 
 M = int(input("Enter number: "))
 
-C = (M ** e) // n
+C = pow(M, e, n)
 
 print("Encrypted:", C)
 
-A = (C ** d) // n
+A = pow(C, d, n)
 
 print("Decrypted:", A)
