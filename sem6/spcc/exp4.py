@@ -19,12 +19,28 @@ def first(grammar):
     print(ans)
 
 def follow(grammar):
-    pass
+    ans = {}
+    for i in grammar:
+        ans[i] = None
+
+    start = list(grammar.keys())[0]
+    ans[start] = '$'
+
+    while not all(ans[i] is not None for i in ans):
+        for i in grammar:
+            for j in grammar[i]:
+                for k in j:
+                    if k is None:
+                        continue
+                    if k.isupper() and ans[k] is None:
+                        ans[k] = ans[i]
+
+    print(ans)
 
 grammar = {
-    'S':[['A']],
-    'A':[['B'], [None]],
-    'B':[['b']]
+    'S': [['a'], ['b'], ['a', 'S', 'A'], ['b', 'S', 'b']],
+    'A': [['a', 'B']],
+    'B': [['b']]
 }
 
 first(grammar)
