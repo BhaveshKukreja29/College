@@ -1,0 +1,214 @@
+Experiment No. 04
+Design GUI Components using Database in Android Studio
+Aim: 
+Design and develop an Android application to perform database operations (Insert and View records) using SQLite.
+Prerequisite:
+
+Object Oriented Programming Language (Java)
+
+Course Outcome: 
+             
+After successful completion of this experiment students will be able to develop and demonstrate mobile applications using various tools.
+Software used: 
+    • Android Studio
+    • Jdk
+    • Android SDK
+    • Emulator or Android DeviceAndroid Studio
+    • SQLite Database
+Theory: 
+
+SQLite is a lightweight, embedded relational database used in Android applications to store structured data locally.
+You do NOT need to install SQLite separately for an Android app.
+How it works in Android
+    • SQLite comes built-in with Android OS
+
+    • Every Android device already has:
+        ◦ SQLite engine
+        ◦ SQLite libraries
+    • Android provides ready-to-use APIs like:
+        ◦ SQLiteOpenHelper
+        ◦ SQLiteDatabase
+        ◦ Cursor
+So when you write:
+public class DatabaseHelper extends SQLiteOpenHelper
+Android is already handling SQLite internally for you.
+In this experiment:
+    • User details such as Name, Email, Contact Number, and Gender are collected through a form.
+    • Data is stored using SQLiteOpenHelper.
+    • Stored records are retrieved using Cursor.
+    • Retrieved data is displayed using RecyclerView with a custom adapter.
+Description of Modules
+1. FirstActivity
+    • Accepts user input using TextInputEditText
+    • Validates form fields
+    • Inserts user data into SQLite database
+    • Navigates to SecondActivity to view stored users
+2. SecondActivity
+    • Retrieves all user records from database
+    • Displays records using RecyclerView
+    • Shows a message if no data is available
+3. DatabaseHelper
+    • Creates and manages SQLite database
+    • Contains methods for:
+        ◦ Table creation
+        ◦ Inserting user details
+        ◦ Retrieving user details
+4. ModelForUsers
+    • Acts as a data model
+    • Stores user attributes with getters and setters
+5. UserRecyclerViewAdapter
+    • Binds user data to RecyclerView
+    • Displays each user in a card-like layout
+Procedure:
+Steps to Execute the Program (Android SQLite Database Application)
+Step 1: Install Required Software
+    1. Install Android Studio (latest stable version).
+    2. Make sure Android SDK, SDK Platform Tools, and Emulator (AVD) are installed.
+    3. Ensure Java/JDK is properly configured (Android Studio handles this by default).
+Step 2: Create a New Android Project
+    1. Open Android Studio.
+    2. Click New Project → select Empty Activity.
+    3. Set:
+
+        ◦ Application Name: Database_Operations
+        ◦ Package Name: com.example.database_operations
+        ◦ Language: Java
+        ◦ Minimum SDK: API 21 or above
+    4. Click Finish.
+Step 3: Add Required Dependencies
+    1. Open build.gradle (Module: app).
+Ensure the following dependencies exist:
+implementation 'androidx.recyclerview:recyclerview:1.3.2'
+implementation 'com.google.android.material:material:1.11.0'
+    2. Click Sync Now.
+Step 4: Create Java Classes
+Create the following Java files inside
+ app/java/com.example.database_operations/
+    1. FirstActivity.java
+    2. SecondActivity.java
+    3. DatabaseHelper.java
+    4. ModelForUsers.java
+    5. UserRecyclerViewAdapter.java
+Step 5: Create XML Layout Files
+Inside res/layout/, create these files:
+    1. activity_first.xml
+    2. activity_second.xml
+    3. row_users.xml
+Step 6: Configure AndroidManifest.xml
+    1. Open AndroidManifest.xml.
+    2. Ensure both activities are declared:
+        ◦ FirstActivity as Launcher Activity
+        ◦ SecondActivity as normal activity
+Verify package name matches:
+
+ package="com.example.database_operations"
+Step 7: Understand Program Flow (Execution Logic)
+FirstActivity (User Registration)
+    1. App starts with FirstActivity.
+    2. User enters:
+        ◦ Name
+        ◦ Email
+        ◦ Contact Number
+        ◦ Gender (RadioButton)
+    3. On clicking Insert Data:
+
+        ◦ validateForm() checks for empty fields.
+        ◦ Data is passed to DatabaseHelper.
+        ◦ Data is inserted into SQLite database (Users table).
+        ◦ Toast messages show success or failure.
+    4. Activity refreshes after insertion.
+DatabaseHelper (SQLite Operations)
+    1. Creates database "Music App".
+    2. Creates table Users with fields:
+        ◦ Id (Primary Key, Auto Increment)
+        ◦ Name
+        ◦ Email
+        ◦ Contact_No
+        ◦ Gender
+
+    3. Handles:
+        ◦ insertUserDetails() → inserts user data
+        ◦ getAllUserDetails() → fetches all records
+SecondActivity (View Users)
+    1. Opened by clicking View Users button.
+    2. Fetches all records from database.
+    3. If no data exists:
+        ◦ Displays "No user details" message.
+    4. If data exists:
+        ◦ Displays users in RecyclerView.
+RecyclerView & Adapter
+    1. UserRecyclerViewAdapter binds database data to UI.
+    2. row_users.xml defines layout for each user row.
+    3. Displays:
+        ◦ ID
+        ◦ Name
+        ◦ Email
+        ◦ Contact Number
+        ◦ Gender
+Step 8: Run the Application
+    1. Start Android Emulator.
+    2. Click Run ▶️ in Android Studio.
+    3. Select target device.
+    4. App installs and launches automatically.
+Tasks:
+Develop an Android application that allows users to enter, store, and view user details using an SQLite database. The application should validate user input, insert records into the database, and display all stored records using a RecyclerView.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(TO BE COMPLETED BY STUDENTS)
+(Students must submit the soft copy as per following segments within two hours of the respective practical. The soft copy must be uploaded on the MsTeams at the end of the practical. Failure in submitting the soft copy may lead to reduction of marks.)
+Roll No.:
+Name:
+Program:
+Division:
+Semester:
+Batch :
+Date of Experiment: 
+Date of Submission: 
+Grade :
+
+
+Program:
+ 
+[Execute the program in Android Studio and Paste it Here]
+
+Output Screenshot:
+
+[Take screenshot of output / Emulator and Paste it Here]
+
+Observations:
+[Write Observations here
+Observations are measurable and descriptive pieces of information collected during or after the execution of an experiment to support conclusions or findings.
+For Eg: SQLite database is created when the application runs for the first time.
+User data is successfully inserted after validation.]
+Conclusions:
+[Write Conclusions here]
+
+
+Question of Curiosity: 
+[Answers to be handwritten or typed here]
+    1. What is SQLite?
+    2. Why is SQLite used in Android?
+    3. What is SQLiteOpenHelper?
+    4. What is a Cursor?
+    5. What is RecyclerView?
+    6. Difference between ListView and RecyclerView?
+References: 
+    1. Android Developers, Canvas and Drawables, Google Developers Documentation.
+    2. Android Developers, Custom View Components, Google Developers Documentation.
+    3. Meier, R., Professional Android Application Development, Wrox Publications.

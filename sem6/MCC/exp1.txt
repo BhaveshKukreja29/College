@@ -1,0 +1,202 @@
+Experiment No. 01
+Implementation of Basic 2D Graphical Primitives
+Aim: 
+To design and implement basic 2D graphical primitives such as point, line, rectangle, circle, and polygon using Android Studio.
+Prerequisite:
+
+Object Oriented Programming Language
+
+Course Outcome: 
+             
+After successful completion of this experiment students will be able to develop and demonstrate mobile applications using various tools.
+Software used: 
+    • Android Studio
+    • Java
+    • Android SDK
+    • Emulator or Android Device
+Theory: 
+
+2D graphical primitives are the basic building blocks used to create complex images and graphics.
+ In Android, 2D graphics are drawn using the Canvas and Paint classes.
+    • Canvas: Provides methods to draw shapes on the screen.
+    • Paint: Defines color, stroke width, style, and text size.
+Common 2D Primitives
+    • Point is drawn using the drawPoint() method.
+    • Line is drawn using the drawLine() method.
+    • Rectangle is drawn using the drawRect() method.
+    • Circle is drawn using the drawCircle() method.
+    • Polygon is drawn using the drawPath() method.
+
+Procedure:
+
+    1. Open Android Studio and create a new project.
+    2. Select Empty Activity.
+    3. Choose Java as the programming language.
+    4. Create a custom View class.
+    5. Override the onDraw(Canvas canvas) method.
+    6. Use Paint and Canvas methods to draw 2D primitives.
+    7. Run the application on an emulator or physical device.
+
+Tasks:
+Task 1: Create Android Project
+    • Create a new Android project in Android Studio.
+    • Select Empty Activity.
+    • Configure project name, package name, and SDK version.
+Task 2: Set Up Main Activity
+    • Create MainActivity.java.
+    • Set the custom View as the content view using setContentView().
+Task 3: Create Custom View Class
+    • Create a class MyView that extends View.
+    • Initialize the Paint object in the constructor.
+Task 4: Override onDraw() Method
+    • Override the onDraw(Canvas canvas) method.
+    • Prepare the canvas for drawing operations.
+Task 5: Draw Point Primitive
+    • Set paint color and stroke width.
+
+    • Use drawPoint() to draw a point at specified coordinates.
+Task 6: Draw Line Primitive
+    • Change paint color.
+    • Use drawLine() to draw a straight line between two points.
+Task 7: Draw Rectangle Primitive
+    • Set paint style to STROKE.
+    • Use drawRect() to draw a rectangle with given boundaries.
+Task 8: Draw Circle Primitive
+    • Set appropriate paint color.
+    • Use drawCircle() to draw a circle with defined center and radius.
+Task 9: Draw Polygon Primitive
+    • Create a Path object.
+    • Define polygon vertices using moveTo() and lineTo().
+    • Close the path and draw it using drawPath().
+Task 10: Execute and Verify Output
+    • Run the application on an emulator or physical device.
+    • Verify that all 2D graphical primitives are displayed correctly.
+
+
+
+
+
+Roll No.: 2303078
+Name: Khubalkar Ritwik Sanjay
+Program: Mobile Computing Lab
+Division: C2
+Semester: 6
+Batch : C21
+Date of Experiment:
+Date of Submission: 23 January 2026
+Grade :
+
+
+Program:
+Project HelloWorld:
+MyActivity.java
+package com.example.maple;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MyActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my);
+    }
+}
+
+Project 2dGraphics:
+MainActivity.java
+package com.example.ritwik;
+
+Import android.os.Bundle;
+Import androidx.appcompat.app.AppCompatActivity;
+
+Public class MainActivity extends AppCompatActivity {
+
+    @Override
+    Protected void onCreate(Bundle savedInstanceState) {
+        Super.onCreate(savedInstanceState);
+        setContentView(new MyView(this));
+    }
+}
+MyView.java
+package com.example.ritwik;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.view.View;
+
+public class MyView extends View {
+
+    Paint paint;
+
+    public MyView(Context context) {
+        super(context);
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStrokeWidth(5);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        // Draw Point
+        paint.setColor(Color.RED);
+        canvas.drawPoint(100, 100, paint);
+
+        // Draw Line
+        paint.setColor(Color.BLUE);
+        canvas.drawLine(150, 150, 400, 150, paint);
+
+        // Draw Rectangle
+        paint.setColor(Color.GREEN);
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawRect(100, 200, 400, 350, paint);
+
+        // Draw Circle
+        paint.setColor(Color.MAGENTA);
+        canvas.drawCircle(250, 500, 100, paint);
+
+        // Draw Polygon (Triangle)
+        paint.setColor(Color.BLACK);
+        Path path = new Path();
+        path.moveTo(100, 700);
+        path.lineTo(300, 700);
+        path.lineTo(200, 550);
+        path.close();
+        canvas.drawPath(path, paint);
+    }
+}
+
+Output Screenshot:
+
+                      
+
+Observations:
+
+The coordinate system on the Android screen originates at the top-left corner of the screen.
+
+A single Paint object is initialised in constructor and reused for all shapes. By changing properties like setStyle and setColor dynamically within onDraw, we avoid memory overhead of creating objects for each shape.
+
+
+
+Conclusions:
+​In this experiment, we successfully demonstrated the printing of Hello World and fundamentals of 2D graphics rendering in Android using the Canvas and Paint classes. We observed that the onDraw() method acts as the primary entry point for rendering, where the Canvas provides the drawing surface and the Paint object controls stylistic properties such as color, style (stroke vs. fill), and stroke width.
+
+Question of Curiosity: 
+    1. What is the use of the Canvas class?
+The Canvas class provides a drawing surface on which you can draw shapes, text, and images.
+
+    2. How are polygons drawn in Android?
+To draw polygons, you define a Path object with the polygon's vertices and then draw the path on the Canvas using a Paint object to specify color and style.
+
+    3. What is the role of onDraw() method?
+The onDraw() method is a callback where all your drawing commands are executed. Android calls this method whenever your view needs to be redrawn, and it passes a Canvas object for you to draw on.
+
+References: 
+    1. Android Developers, Canvas and Drawables, Google Developers Documentation.
+    2. Android Developers, Custom View Components, Google Developers Documentation.
+    3. Meier, R., Professional Android Application Development, Wrox Publications.

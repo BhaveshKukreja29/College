@@ -1,0 +1,125 @@
+Experiment No. 02
+Implementation of Basic 3D Graphical Primitives
+Aim: 
+To design and implement basic 3D graphical primitives such as cube using Android Studio.
+Prerequisite:
+
+Object Oriented Programming Language (Java)
+
+Course Outcome: 
+             
+After successful completion of this experiment students will be able to develop and demonstrate mobile applications using various tools.
+Software used: 
+    • Android Studio
+    • Java
+    • Android SDK
+    • Emulator or Android Device
+Theory: 
+
+A Bitmap is created to act as a drawing surface. The bitmap is set as the background of an ImageView, allowing all graphical elements to be displayed on the screen. A Canvas object is then associated with the bitmap, which provides methods to draw shapes, lines, and text.
+The Paint class is used to define drawing properties such as color and text size. Different Paint objects are used to distinguish between the cube and cuboid by assigning different colors. Using the drawLine() method, multiple straight lines are drawn to form the edges of the cube and cuboid. By offsetting the front and back faces and connecting corresponding vertices, a 3D effect is achieved on a 2D screen.
+Text labels are added using the drawText() method to identify the cube and cuboid. The coordinates supplied to the drawing methods determine the position and dimensions of the shapes on the screen.
+Thus, this program demonstrates how 3D primitives can be represented using 2D drawing techniques in Android utilizing the Bitmap, Canvas, and Paint classes.
+Procedure:
+
+    1. Open Android Studio.
+    2. Click on New Project and select Empty Activity.
+    3. Enter the application name as Primitives_3D and set the package name as
+ com.example.primitives_3d.
+    4. Choose Java as the programming language and select the minimum SDK as API 21 (Android 5.0) or above.
+    5. Click Finish to create the project.
+    6. Open the file MainActivity.java and replace the default code with the given program that uses Bitmap, Canvas, and Paint classes to draw 3D primitives.
+    7. Open activity_main.xml layout file and add an ImageView with the id imageView to display the drawn bitmap.
+    8. Save all the files and check for syntax errors.
+    9. Connect an Android device using USB cable or start an Android Emulator.
+    10. Click on the Run button in Android Studio.
+    11. Select the target device and wait for the application to install and launch.
+    12. Observe the output where a Cuboid and Cube are displayed on the screen using line drawings.
+Tasks:
+Task 1: Create Android Project
+ Create a new Android project in Android Studio.
+ Select Empty Activity.
+ Configure project name, package name, and SDK version.
+Task 2: Set Up Main Activity
+ Create MainActivity.java.
+ Set the layout using setContentView(R.layout.activity_main).
+Task 3: Design Layout with ImageView
+ Open activity_main.xml.
+ Add an ImageView to display the bitmap graphics.
+ Assign an id to the ImageView.
+Task 4: Create Bitmap and Canvas
+ Create a Bitmap object to act as the drawing surface.
+ Associate a Canvas object with the bitmap.
+Task 5: Initialize Paint Objects
+ Create Paint objects.
+ Set color and text size for drawing text and shapes.
+Task 6: Draw Cuboid Primitive
+ Use drawLine() to draw the front face of the cuboid.
+ Draw the back face with offset coordinates.
+ Connect corresponding vertices to create a 3D cuboid effect.
+Task 7: Label the Cuboid
+ Set paint properties for text.
+ Use drawText() to display the label “Cuboid”.
+Task 8: Draw Cube Primitive
+ Use drawLine() to draw the front and back faces of the cube.
+ Connect edges to form a 3D cube structure.
+Task 9: Label the Cube
+ Use drawText() to display the label “Cube”.
+ Ensure proper positioning of the text.
+Task 10: Set Bitmap to ImageView
+ Set the bitmap as the background of the ImageView.
+ Display the drawn shapes on the screen.
+Task 11: Execute and Verify Output
+ Run the application on an emulator or physical device.
+ Verify that the Cube and Cuboid are displayed correctly.
+Roll No.: 2303078
+Name: Ritwik Khubalkar
+Program: Mobile Computing Lab
+Division: C2
+Semester: 6
+Batch: C21
+Date of Experiment: 23 January 2026
+Date of Submission: 29 January 2026
+Grade :
+
+
+Program:
+ 
+[Execute the program in Android Studio and Paste it Here]
+
+Output Screenshot:
+
+
+
+
+
+Observations:
+
+Shape Rendering: The program successfully rendered a 3D cube and cuboid on a 2D screen by using the drawLine() method to connect offset vertices.
+Visual Distinction: Different Paint objects and colors were utilized to clearly distinguish between the cube and the cuboid.
+Labeling: Text labels "Cube" and "Cuboid" were accurately displayed at their designated coordinates using the drawText() method.
+UI Integration: The final rendered image was correctly displayed within an ImageView component, confirming that the Bitmap functioned as an effective memory buffer.
+
+Conclusions:
+
+The experiment successfully demonstrates that 3D graphical primitives can be represented on a 2D Android interface using basic drawing techniques. By manipulating the Bitmap, Canvas, and Paint classes, we established that a 3D effect is achievable through perspective projection—specifically by offsetting front and back faces and connecting their vertices. This experiment confirms the efficacy of using Android’s 2D drawing API to simulate depth and develop visually complex mobile application components.
+
+Question of Curiosity: 
+    1. What is the role of Bitmap in this program?
+The Bitmap acts as your digital canvas or frame buffer. While the Canvas provides the "tools" (brushes, lines, shapes), the Bitmap is the actual memory space where the pixel data is stored. Once the Canvas finished drawing the 3D projection, the Bitmap holds the final flattened image to be displayed.
+
+    2. How is the 3D effect achieved in this experiment?
+The effect is achieved through Perspective Projection math. Since a screen is 2D, you calculate the "scale" of an object based on its distance (Z value) from the viewer.
+    • Scaling: Points further away are moved closer to the center of the screen and drawn smaller.
+    • Transformation: You map 3D coordinates (x, y, z) to 2D coordinates (x, y) using a projection ratio, creating the illusion of vanishing points.
+
+
+    3. What is the function of ImageView in this program?
+The ImageView is the UI container that bridges your background logic and the user's screen.
+    • Because Canvas and Bitmap are just data in memory, they aren't visible by default.
+    • You call imageView.setImageBitmap(yourBitmap) to push that rendered data into the Android View hierarchy so the user can actually see it.
+
+References: 
+    1. Android Developers, Canvas and Drawables, Google Developers Documentation.
+    2. Android Developers, Custom View Components, Google Developers Documentation.
+    3. Meier, R., Professional Android Application Development, Wrox Publications.
