@@ -26,7 +26,7 @@ def get_first(s):
 for nt in nt_list: first[nt] = get_first(nt)
 
 follow = {nt: set() for nt in nt_list}; follow[nt_list[0]].add('$')
-for _ in range(len(nt_list)): # Iterate to stabilize
+for _ in range(len(nt_list)):
     for head, body in prods:
         for i, char in enumerate(body):
             if char.isupper():
@@ -37,11 +37,12 @@ for _ in range(len(nt_list)): # Iterate to stabilize
                     follow[char] |= (f_next - {'e'})
                     if 'e' in f_next: follow[char] |= follow[head]
 
-# Build Table & Check LL(1)
 table = {nt: {t: "" for t in t_list} for nt in nt_list}
 is_ll1 = True
+
 for head, body in prods:
-    f_body = get_first(body[0]) if body != 'e' else {'e'}
+    f_body = get_first(body[0] if body != 'e' else {'e'})
+
     for s in f_body:
         if s != 'e':
             if table[head][s]: is_ll1 = False
@@ -49,12 +50,16 @@ for head, body in prods:
         else:
             for f_s in follow[head]:
                 if table[head][f_s]: is_ll1 = False
-                table[head][f_s] = f"{head}->{body}"
+                table[head][s] = f"{head}->{body}"
+
 
 print("\nFIRST:", first, "\nFOLLOW:", follow)
-print("\nTable (NT | Terminals):")
+print("\nTable")
+print()
 for nt in nt_list:
     print(f"{nt} | " + " | ".join([table[nt][t] or "-" for t in t_list]))
 
-print("\nGrammar is LL(1):", is
-_ll1)
+if is_ll1:
+    print("Grammar is LL1")
+else:
+    print("Not LL1")
