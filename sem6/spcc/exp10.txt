@@ -1,0 +1,225 @@
+Experiment No. 10
+Implementation of Two Pass Assembler
+Aim: 
+To implement a Two Pass Assembler and generate:
+    • Intermediate Code (Pass I)
+    • Symbol Table (SYMTAB)
+    • Final Machine Code (Pass II)
+Prerequisite:
+
+Programming Language (C/C++/ Java/ Python)
+
+Course Outcome: 
+             
+After successful completion of this experiment students will be able to Generate machine code by implementing two pass assemblers.
+Software used: 
+    • Operating System: Windows / Linux 
+    • Compiler: GCC / javac
+    • Text editor (gedit / DevC++/Visual Studio Code)
+Theory: 
+An Assembler is a system software that translates an assembly language program into machine language.
+Two Pass Assembler
+A two pass assembler works in two phases:
+Pass I
+    • Scans the program.
+    • Assigns addresses to symbols.
+    • Generates:
+
+        ◦ Symbol Table (SYMTAB)
+        ◦ Intermediate Code (IC)
+Pass II
+    • Uses intermediate code and symbol table.
+    • Generates final machine code.
+Input Program
+START 501
+READ A
+READ B
+MOVER AREG A
+ADD AREG B
+MOVEM AREG C
+PRINT C
+A DS 1
+B DS 1
+C DS 1
+END
+Output
+OPTAB (Mnemonic Table)
+Mnemonic
+Class
+Opcode
+READ
+IS
+(09,1)
+MOVER
+IS
+(04,1)
+ADD
+IS
+(01,1)
+MOVEM
+IS
+(05,1)
+PRINT
+IS
+(10,1)
+DS
+DL
+R#7
+START
+AD
+R#11
+END
+AD
+R#9
+Intermediate Code (Pass I Output)
+(AD, 01) (C, 501)
+(IS, 09) (S, 01)
+(IS, 09) (S, 02)
+(IS, 04) (1) (S, 01)
+(IS, 01) (1) (S, 02)
+(IS, 05) (1) (S, 03)
+(IS, 10) (S, 03)
+(DL, 02) (C, 1)
+(DL, 02) (C, 1)
+(DL, 02) (C, 1)
+(AD, 02)
+Symbol Table (SYMTAB)
+Symbol
+Address
+Length
+A
+507
+1
+B
+508
+1
+C
+509
+1
+Pass II Output (Machine Code)
+501 +09 0 507
+502 +09 0 508
+503 +04 1 507
+504 +01 1 508
+505 +05 1 509
+506 +10 0 509
+507
+508
+509
+
+Algorithm:
+Pass I Algorithm
+    1. Initialize Location Counter (LC).
+    2. Read first instruction.
+    3. If START, initialize LC.
+    4. For each instruction:
+        ◦ If label present → add to SYMTAB.
+        ◦ Generate intermediate code.
+        ◦ Update LC.
+    5. Stop at END.
+Pass II Algorithm
+    1. Read intermediate code.
+    2. Replace symbolic addresses using SYMTAB.
+    3. Generate machine code.
+    4. Output final object code.
+Procedure:
+    1. Open any C Compiler
+        a. Use tools like Turbo C / Code::Blocks / GCC (Terminal) / Online Compiler.
+    2. Create a New C File
+        a. Write the program and save it as:
+ assembler.c
+    3. Write/Input the Assembly Program
+        a. Store it in a file (e.g., input.txt) and read using file handling.
+    4. Compile the Program
+        a. If using GCC (terminal):
+ gcc assembler.c -o assembler
+    5. Run the Program
+ ./assembler
+ (On Windows: assembler.exe)
+    6. Provide Input (if required)
+        a. Enter assembly instructions manually or ensure input file is present.
+    7. Observe Pass I Output
+        a. Intermediate Code (IC)
+        b. Symbol Table (SYMTAB)
+    8. Observe Pass II Output
+        a. Final Machine Code generation
+    9. Verify Results
+        a. Check correctness of:
+            i. Addresses
+            ii. Opcodes
+            iii. Symbol resolution
+    10. Save Output (Optional)
+    • Store results in files like:
+        ◦ ic.txt
+        ◦ symtab.txt
+        ◦ output.txt
+Tasks:
+    1. Develop a C program to implement a Two Pass Assembler.
+    2. In Pass I:
+        a. Read the assembly program.
+        b. Maintain a Location Counter (LC).
+        c. Generate Intermediate Code (IC).
+        d. Construct the Symbol Table (SYMTAB).
+    3. In Pass II:
+        a. Read the Intermediate Code.
+        b. Replace symbolic operands using SYMTAB.
+        c. Generate final Machine Code.
+    4. Display:
+        a. Intermediate Code
+        b. Symbol Table
+        c. Machine Code
+    5. Test the program using the given assembly input.
+
+
+
+
+
+(TO BE COMPLETED BY STUDENTS)
+(Students must submit the soft copy as per following segments within two hours of the respective practical. The soft copy must be uploaded on the MsTeams at the end of the practical. Failure in submitting the soft copy may lead to reduction of marks.)
+Roll No.:
+Name:
+Program:
+Division:
+Semester:
+Batch :
+Date of Experiment: 
+Date of Submission: 
+Grade :
+
+
+Program:
+ 
+[Execute the program and Paste it here]
+
+Output Screenshots:
+
+[Take screenshots of output and Paste it here]
+
+Observations:
+
+[Write Observations here
+Observations are measurable and descriptive pieces of information collected during or after the execution of an experiment to support conclusions or findings.
+For Eg: The Location Counter (LC) starts from the value specified in the START directive.
+All symbols (A, B, C) are assigned sequential memory addresses.
+
+Declarative statements (DS) reserve memory but do not generate machine instructions.
+Intermediate Code simplifies the translation process for Pass II.
+Symbol Table is used in Pass II to resolve symbolic references.]
+
+Conclusions:
+[Write Conclusions here]
+
+
+Question of Curiosity: 
+[Answers to be handwritten or typed here]
+    1. What is an assembler?
+    2. What is the difference between a one pass and two pass assembler?
+    3. What is SYMTAB?
+    4. What is intermediate code?
+    5. Why is Pass II required?
+    6. What is the role of a location counter?
+    7. What are IS, DL, and AD?
+
+ References: 
+    1. L. L. Dhamdhere, Systems Programming and Operating Systems, 2nd ed. New Delhi, India: McGraw-Hill Education, 2011.
+    2. S. Pal, Systems Programming. New Delhi, India: Oxford University Press, 2011.

@@ -1,0 +1,438 @@
+Experiment No. 09 
+
+Implementation of Two Pass Macroprocessor 
+
+Aim:  
+
+To study and implement the working of a Two Pass Macroprocessor using a sample assembly program and understand the generation of MDT, MNT, and ALA tables. 
+
+Prerequisite: 
+
+ 
+
+Programming Language (C/C++/ Java/ Python) 
+
+ 
+
+Course Outcome:  
+
+              
+
+After successful completion of this experiment students will be able to Implement Two pass macro processor. 
+
+Software used:  
+
+    Operating System: Windows / Linux  
+
+    Compiler: GCC / javac 
+
+    Text editor (gedit / DevC++/Visual Studio Code) 
+
+Theory:  
+
+A macroprocessor is a system software component that allows programmers to define macros (a sequence of instructions) and reuse them multiple times in a program. When a macro is called, the macroprocessor replaces the macro call with the macro body. 
+
+A Multi-Pass Macroprocessor processes the source program in two passes. 
+
+Pass 1 
+
+During Pass 1, the macro definitions are processed and stored in tables: 
+
+    MNT (Macro Name Table) – Stores macro name and pointer to MDT. 
+
+    MDT (Macro Definition Table) – Stores macro body. 
+
+    ALA (Argument List Array) – Stores arguments used in macro. 
+
+Tasks of Pass 1: 
+
+    Identify MACRO and MEND statements. 
+
+    Store macro name in MNT. 
+
+    Store macro body in MDT. 
+
+    Process formal parameters. 
+
+Pass 2 
+
+During Pass 2: 
+
+    Macro calls are expanded. 
+
+    Actual parameters replace formal parameters. 
+
+    The final expanded assembly code is generated. 
+
+Tasks of Pass 2: 
+
+    Detects macro calls. 
+
+    Refer to MNT to find the macro. 
+
+    Fetch macro body from MDT. 
+
+    Replace parameters using ALA. 
+
+    Produce expanded source program. 
+
+Sample Program 
+
+PRG  START  0 
+
+MACRO 
+
+&LAB  INCR   &ARG1, &ARG2, &ARG3 
+
+&LAB  A  1, &ARG1 
+
+     A  2, &ARG2 
+
+     A  3, &ARG3 
+
+MEND 
+
+LOOP1 INCR   DATA1, DATA2, DATA3 
+
+DATA1  DC  F'5' 
+
+DATA2  DC  F'10' 
+
+DATA3  DC  F'15' 
+
+Pass 1 Output 
+
+    Macro definition is removed. 
+     
+
+    Only macro call remains. 
+     
+
+PRG  START  0 
+
+LOOP1 INCR   DATA1, DATA2, DATA3 
+
+DATA1  DC  F'5' 
+
+DATA2  DC  F'10' 
+
+DATA3  DC  F'15' 
+
+Tables Generated in Pass 1 
+
+1. Macro Name Table (MNT) 
+
+Index 
+	
+
+Name 
+	
+
+MDT Index 
+
+1 
+	
+
+INCR 
+	
+
+1 
+
+2. Macro Definition Table (MDT) 
+
+Index 
+	
+
+Definition 
+
+1 
+	
+
+&LAB INCR &ARG1, &ARG2, &ARG3 
+
+2 
+	
+
+#0 A 1, #1 
+
+3 
+	
+
+A 2, #2 
+
+4 
+	
+
+A 3, #3 
+
+5 
+	
+
+MEND 
+
+3. Argument List Array (ALA) (Pass 1) 
+
+Index 
+	
+
+Argument 
+
+0 
+	
+
+— 
+
+1 
+	
+
+— 
+
+2 
+	
+
+— 
+
+3 
+	
+
+— 
+
+Pass 2 Output (Macro Expansion) 
+
+PRG  START  0 
+
+LOOP1 A  1, DATA1 
+
+     A  2, DATA2 
+
+     A  3, DATA3 
+
+DATA1  DC  F'5' 
+
+DATA2  DC  F'10' 
+
+DATA3  DC  F'15' 
+
+ALA During Pass 2 
+
+Index 
+	
+
+Argument 
+
+0 
+	
+
+LOOP1 
+
+1 
+	
+
+DATA1 
+
+2 
+	
+
+DATA2 
+
+3 
+	
+
+DATA3 
+
+ 
+
+Algorithm: 
+
+Pass 1 Algorithm 
+
+    Start. 
+
+    Read the source program line by line. 
+
+    If MACRO statement is encountered: 
+
+    Read next line containing macro prototype. 
+
+    Enter macro name in MNT. 
+
+    Store macro body lines in MDT until MEND. 
+
+    Continue reading program. 
+
+    Store non-macro statements in an intermediate file. 
+
+    Stop at the end of file. 
+
+Pass 2 Algorithm 
+
+    Start. 
+
+    Read intermediate code line by line. 
+
+    Check whether the statement is a macro call. 
+
+    If macro call exists: 
+
+    Search macro name in MNT. 
+
+    Fetch macro definition from MDT. 
+
+    Replace formal parameters with actual parameters using ALA. 
+
+    Write expanded statements to output. 
+
+    If not a macro call, copy the statement to output. 
+
+    Repeat until the end of the file. 
+
+    Stop. 
+
+ 
+
+Procedure: 
+
+    Write the source program containing macro definitions and macro calls in an input file. 
+
+    Compile the C program for Multi Pass Macroprocessor using a C compiler. 
+
+    Execute the program to start Pass 1 processing. 
+
+    During Pass 1, the program reads the input file and identifies the MACRO and MEND statements. 
+
+    Store the macro name in the Macro Name Table (MNT) and the macro body in the Macro Definition Table (MDT). 
+
+    Generate an intermediate file that contains the source program without macro definitions. 
+
+    Start Pass 2 of the macroprocessor. 
+
+    Read the intermediate file line by line and detect macro calls. 
+
+    Replace each macro call with the corresponding macro definition from MDT. 
+
+    Display or store the expanded program as the final output. 
+
+    Verify that all macro calls are correctly expanded. 
+
+    Observe the generated MDT, intermediate code, and final expanded program. 
+
+Tasks: 
+
+    Write a program in C to implement a Two Pass Macroprocessor. 
+
+    The program should read an assembly language source program containing macro definitions and macro calls. 
+
+    In Pass 1, identify macro definitions and store them in the Macro Name Table (MNT) and Macro Definition Table (MDT) while generating an intermediate file. 
+
+    In Pass 2, read the intermediate file and expand the macro calls by replacing them with the corresponding macro body from the MDT. 
+
+    Display or generate the final expanded source program as output. 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+(TO BE COMPLETED BY STUDENTS) 
+
+(Students must submit the soft copy as per following segments within two hours of the respective practical. The soft copy must be uploaded on the MsTeams at the end of the practical. Failure in submitting the soft copy may lead to reduction of marks.) 
+
+Roll No.: 
+	
+
+Name: 
+
+Program: 
+	
+
+Division: 
+
+Semester: 
+	
+
+Batch : 
+
+Date of Experiment:  
+	
+
+Date of Submission:  
+
+Grade : 
+	
+
+ 
+
+ 
+
+Program: 
+
+  
+
+[Execute the program and Paste it here] 
+
+ 
+
+Output Screenshots: 
+
+ 
+
+[Take screenshots of output and Paste it here] 
+
+ 
+
+Observations: 
+
+ 
+
+[Write Observations here 
+
+Observations are measurable and descriptive pieces of information collected during or after the execution of an experiment to support conclusions or findings. 
+
+For Eg: Macro definitions are stored in MDT during Pass 1. Macro calls are expanded during Pass 2.] 
+
+ 
+
+Conclusions: 
+
+[Write Conclusions here] 
+
+ 
+
+ 
+
+Question of Curiosity:  
+
+[Answers to be handwritten or typed here] 
+
+    What is a macroprocessor? 
+
+    What is the difference between single pass and multi pass macroprocessor? 
+
+    What is Macro Name Table (MNT)? 
+
+    What is Macro Definition Table (MDT)? 
+
+    What is the purpose of MEND in macro definition? 
+
+    What happens during Pass 1 of a macroprocessor? 
+
+    What happens during Pass 2 of a macroprocessor? 
+
+    What are the advantages of macros? 
+
+ 
+
+ References:  
+
+    Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D., Compilers: Principles, Techniques, and Tools, 2nd Edition, Pearson Education. 
+
+    Alfred V. Aho and Jeffrey D. Ullman, Principles of Compiler Design, Addison-Wesley. 
+
+ 

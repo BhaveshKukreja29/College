@@ -1,0 +1,223 @@
+Experiment No. 06 
+
+Three Address Code Generation 
+
+Aim:  
+
+To write a program for generating Three Address Code (TAC) from a given arithmetic expression. 
+
+Prerequisite: 
+
+ 
+
+Programming Language (C/C++/ Java/ Python) 
+
+ 
+
+Course Outcome:  
+
+              
+
+After successful completion of this experiment students will be able to Parse the given input string by constructing Top down/Bottom-up parser. 
+
+Software used:  
+
+    Operating System: Windows / Linux  
+
+    Compiler: GCC / javac 
+
+    Text editor (gedit / DevC++/Visual Studio Code) 
+
+Theory:  
+
+Three Address Code (TAC) is an intermediate representation used in compilers during program translation. It breaks complex expressions into a sequence of simple instructions containing at most three operands. 
+
+Each TAC instruction generally has the form: 
+
+result = operand1 operator operand2 
+
+or 
+
+result = operator operand 
+
+TAC helps in: 
+
+    Simplifying expressions 
+
+    Code optimization 
+
+    Easy machine code generation 
+
+Example 
+
+Expression: 
+
+a = b + c * d 
+
+TAC: 
+
+t1 = c * d 
+
+t2 = b + t1 
+
+a = t2 
+
+Temporary variables (t1, t2, etc.) are used to store intermediate results. 
+
+Algorithm: 
+
+    Start the program. 
+
+    Accept an arithmetic expression. 
+
+    Scan the expression from left to right. 
+
+    Identify operators based on precedence. 
+
+    Generate temporary variables. 
+
+    Convert each operation into TAC format. 
+
+    Print generated Three Address Code. 
+
+    Stop. 
+
+Procedure: 
+
+    Open the C programming environment. 
+
+    Create a new file named tac.c. 
+
+    Type the program. 
+     
+
+    Compile the program using the compiler. 
+
+    Execute the program. 
+
+    Enter an arithmetic expression. 
+
+    Observe the generated Three Address Code. 
+
+Tasks: 
+
+Implement a C program that reads an arithmetic expression as input and generates its corresponding Three Address Code (TAC) by scanning the expression and identifying operators based on precedence. The program should create temporary variables (t1, t2, t3, etc.) to store intermediate results and print each operation in the form of result = operand1 operator operand2. During implementation, students must handle operators such as +, −, *, and /, update the expression step-by-step after each operation, and display the final TAC output clearly. The program should be compiled, executed with different test expressions, and verified for correct intermediate code generation. 
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+(TO BE COMPLETED BY STUDENTS) 
+
+(Students must submit the soft copy as per following segments within two hours of the respective practical. The soft copy must be uploaded on the MsTeams at the end of the practical. Failure in submitting the soft copy may lead to reduction of marks.) 
+
+Roll No.: 
+	
+
+Name: 
+
+Program: 
+	
+
+Division: 
+
+Semester: 
+	
+
+Batch : 
+
+Date of Experiment:  
+	
+
+Date of Submission:  
+
+Grade : 
+	
+
+ 
+
+ 
+
+Program: 
+
+  
+
+[Execute the program and Paste it here] 
+
+ 
+
+Output Screenshots: 
+
+ 
+
+[Take screenshots of output and Paste it here] 
+
+ 
+
+Observations: 
+
+ 
+
+[Write Observations here 
+
+Observations are measurable and descriptive pieces of information collected during or after the execution of an experiment to support conclusions or findings. 
+
+For Eg: Temporary variables store intermediate values.] 
+
+ 
+
+Conclusions: 
+
+[Write Conclusions here] 
+
+ 
+
+ 
+
+Question of Curiosity:  
+
+[Answers to be handwritten or typed here] 
+
+    What is Three Address Code? 
+
+    Why is TAC used in compilers? 
+
+    What are temporary variables? 
+
+    Give the general form of TAC. 
+
+    What is intermediate code generation? 
+
+    Name types of intermediate representations. 
+
+ 
+
+ References:  
+
+    Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D., Compilers: Principles, Techniques, and Tools, 2nd Edition, Pearson Education. 
+
+    Alfred V. Aho and Jeffrey D. Ullman, Principles of Compiler Design, Addison-Wesley. 
+
+ 

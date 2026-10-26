@@ -1,103 +1,66 @@
-def first(grammar):
-    ans = {nt: set() for nt in grammar}
+# FIRST: what terminals can a symbol start with?
+# FOLLOW: what terminals can appear after a non-terminal?
 
-    changed = True
-    while changed:
-        changed = False
-        for nt in grammar:
-            for prod in grammar[nt]:
-                all_nullable = True
-                for sym in prod:
-                    if sym == 'e':
-                        if 'e' not in ans[nt]:
-                            ans[nt].add('e')
-                            changed = True
-                        all_nullable = True
-                        break
+grammar = {}
 
-                    if sym not in grammar:
-                        if sym not in ans[nt]:
-                            ans[nt].add(sym)
-                            changed = True
-                        all_nullable = False
-                        break
-                    else:
-                        before = len(ans[nt])
-                        ans[nt] |= ans[sym] - {'e'}
-                        if len(ans[nt]) > before:
-                            changed = True
-                        if 'e' not in ans[sym]:
-                            all_nullable = False
-                            break
-
-                if all_nullable and 'e' not in ans[nt]:
-                    ans[nt].add('e')
-                    changed = True
-
-    return ans
+def get_first(sym):
+    if sym == 'e':
+        return {'e'}
+    if sym not in grammar:       # terminal
+        return {sym}
+    result = set()
+    for prod in grammar[sym]:
+        for s in prod:
+            f = get_first(s)
+            result |= f - {'e'}
+            if 'e' not in f:
+                break
+        else:
+            result.add('e')      # all symbols nullable
+    return result
 
 
-def follow(grammar, first_sets):
-    ans = {nt: set() for nt in grammar}
-
+def get_follow():
+    follow = {nt: set() for nt in grammar}
     start = list(grammar.keys())[0]
-    ans[start].add('$')
+    follow[start].add('$')
 
-    changed = True
-    while changed:
-        changed = False
+    for _ in range(len(grammar)):          # repeat to propagate
         for nt in grammar:
             for prod in grammar[nt]:
                 for i, sym in enumerate(prod):
                     if sym not in grammar:
                         continue
-
-                    beta = prod[i + 1:]
-
+                    beta = prod[i+1:]
+                    # FIRST of everything after sym
                     first_beta = set()
-                    all_nullable = True
+                    nullable = True
                     for b in beta:
-                        if b not in grammar:
-                            first_beta.add(b)
-                            all_nullable = False
+                        fb = get_first(b)
+                        first_beta |= fb - {'e'}
+                        if 'e' not in fb:
+                            nullable = False
                             break
-                        else:
-                            first_beta |= first_sets[b] - {'e'}
-                            if 'e' not in first_sets[b]:
-                                all_nullable = False
-                                break
-
-                    before = len(ans[sym])
-                    ans[sym] |= first_beta
-
-                    if all_nullable:
-                        ans[sym] |= ans[nt]
-
-                    if len(ans[sym]) > before:
-                        changed = True
-    return ans
+                    follow[sym] |= first_beta
+                    if nullable:
+                        follow[sym] |= follow[nt]
+    return follow
 
 
+# --- input ---
 n = int(input("Enter number of non-terminals: "))
-grammar = {}
-
 for _ in range(n):
-    nt = input("Enter non-terminal: ").strip()
-    m = int(input(f"Enter number of productions for {nt}: "))
-    prods = []
-    for j in range(m):
-        raw = input(f"  Production {j + 1} (space-separated, use 'e' for epsilon): ").strip()
-        prods.append(raw.split())
-    grammar[nt] = prods
+    nt = input("Non-terminal: ").strip()
+    raw = input(f"  Productions for {nt} (| separated, 'e'=epsilon): ")
+    grammar[nt] = [alt.strip().split() for alt in raw.split('|')]
 
-print()
-
-f = first(grammar)
-print("FIRST sets:")
+# --- output ---
+print("\nFIRST:")
 for nt in grammar:
-    print(f"  FIRST({nt}) = {{ {', '.join(sorted(f[nt]))} }}")
+    print(f"  FIRST({nt}) = {{ {', '.join(sorted(get_first(nt)))} }}")
 
-fl = follow(grammar, f)
-print("\nFOLLOW sets:")
+follow = get_follow()
+print("\nFOLLOW:")
 for nt in grammar:
-    print(f"  FOLLOW({nt}) = {{ {', '.join(sorted(fl[nt]))} }}")
+    print(f"  FOLLOW({nt}) = {{ {', '.join(sorted(follow[nt]))} }}")
+

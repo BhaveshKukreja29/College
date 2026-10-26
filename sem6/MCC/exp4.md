@@ -580,17 +580,17 @@ public class SecondActivity extends AppCompatActivity {
 
 ### Observations
 
-- The SQLite database (`UsersDB`) and the `Users` table are created automatically on the first launch of the application when `DatabaseHelper` is instantiated.
-- User data is successfully inserted into the database after all form fields pass validation. A `Toast` message confirms the operation status.
-- The `RadioGroup` correctly ensures single-selection for the Gender field; attempting to submit without selecting a gender triggers a `Toast` warning.
-- `SecondActivity` retrieves all records using a `Cursor`-backed query and populates the `RecyclerView`. When no records exist, the "No user details available" `TextView` is shown instead.
-- Each `RecyclerView` item is rendered using a `CardView` layout, displaying the user's ID, Name, Email, Contact Number, and Gender in a card format.
+- The SQLite database (UsersDB) and the Users table are created automatically on the first launch of the application when DatabaseHelper is instantiated.
+- User data is successfully inserted into the database after all form fields pass validation. A Toast message confirms the operation status.
+- The RadioGroup correctly ensures single-selection for the Gender field; attempting to submit without selecting a gender triggers a Toast warning.
+- SecondActivity retrieves all records us   ing a Cursor-backed query and populates the RecyclerView. When no records exist, the "No user details available" TextView is shown instead.
+- Each RecyclerView item is rendered using a CardView layout, displaying the user's ID, Name, Email, Contact Number, and Gender in a card format.
 
 ---
 
 ### Conclusions
 
-This experiment demonstrates the integration of Android's GUI framework with the SQLite database engine for persistent local storage. The `SQLiteOpenHelper` abstraction simplifies database lifecycle management (creation, upgrade), while `ContentValues` and `Cursor` provide a clean API for data insertion and retrieval respectively. The use of `RecyclerView` with a custom adapter showcases the recommended approach for rendering dynamic lists efficiently, as it recycles view holders to minimise memory allocation. Overall, the experiment validates a complete data flow — from form input, through validation and persistence, to display — within a multi-activity Android application.
+This experiment demonstrates the integration of Android's GUI framework with the SQLite database engine for persistent local storage. The SQLiteOpenHelper abstraction simplifies database lifecycle management (creation, upgrade), while ContentValues and Cursor provide a clean API for data insertion and retrieval respectively. The use of RecyclerView with a custom adapter showcases the recommended approach for rendering dynamic lists efficiently, as it recycles view holders to minimise memory allocation. Overall, the experiment validates a complete data flow from form input, through validation and persistence, to display within a multi-activity Android application.
 
 ---
 
@@ -603,20 +603,20 @@ SQLite is a self-contained, serverless, zero-configuration relational database e
 SQLite is bundled into the Android operating system, so it is available on every device without additional installation. It provides a lightweight, fast, and reliable mechanism for structured local storage — ideal for mobile apps where a full client-server database would be overkill.
 
 **3. What is SQLiteOpenHelper?**
-`SQLiteOpenHelper` is an abstract class that manages database creation and version management. Developers override `onCreate()` to define the initial schema and `onUpgrade()` to handle migrations when the database version changes, ensuring a clean lifecycle.
+SQLiteOpenHelper is an abstract class that manages database creation and version management. Developers override onCreate() to define the initial schema and onUpgrade() to handle migrations when the database version changes, ensuring a clean lifecycle.
 
 **4. What is a Cursor?**
-A `Cursor` is an interface that provides random read-write access to the result set returned by a database query. It functions as an iterator — you call `moveToFirst()`, `moveToNext()`, etc. to traverse rows, and `getString()`, `getInt()` to extract column values.
+A Cursor is an interface that provides random read-write access to the result set returned by a database query. It functions as an iterator — you call moveToFirst(), moveToNext(), etc. to traverse rows, and getString(), getInt() to extract column values.
 
 **5. What is RecyclerView?**
-`RecyclerView` is the modern replacement for `ListView`. It efficiently displays large datasets by recycling item views that scroll off-screen and rebinding them with new data. It requires a `LayoutManager` (e.g., `LinearLayoutManager`) and an `Adapter` to function.
+RecyclerView is the modern replacement for ListView. It efficiently displays large datasets by recycling item views that scroll off-screen and rebinding them with new data. It requires a LayoutManager (e.g., LinearLayoutManager) and an Adapter to function.
 
 **6. Difference between ListView and RecyclerView?**
 | Aspect          | ListView                          | RecyclerView                                  |
 |----------------|-----------------------------------|-----------------------------------------------|
 | ViewHolder      | Optional (manual implementation)  | Enforced by the adapter pattern               |
 | Layout Manager  | Only vertical scrolling           | Supports linear, grid, and staggered layouts  |
-| Item Animation  | No built-in support               | Built-in `ItemAnimator` for add/remove/move   |
+| Item Animation  | No built-in support               | Built-in ItemAnimator for add/remove/move   |
 | Performance     | Less efficient with large lists   | View recycling is mandatory, more efficient   |
 
 ---

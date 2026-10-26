@@ -1,0 +1,7 @@
+PRG  START  0
+LOOP1  A  1, DATA1
+      A  2, DATA2
+      A  3, DATA3
+DATA1  DC  F'5'
+DATA2  DC  F'10'
+DATA3  DC  F'15'

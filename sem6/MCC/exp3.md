@@ -310,42 +310,42 @@ public class SecondActivity extends AppCompatActivity {
 
 ### Observations
 
-- All `EditText` fields accept user input according to their specified `inputType` attributes (`text`, `textEmailAddress`, `textPassword`).
-- When the PROCEED button is clicked with empty fields, appropriate error messages are displayed inline below each respective field using `setError()`.
+- All EditText fields accept user input according to their specified inputType attributes (text, textEmailAddress, textPassword).
+- When the PROCEED button is clicked with empty fields, appropriate error messages are displayed inline below each respective field using setError().
 - The password field enforces a minimum length of eight characters, displaying a distinct error message when the constraint is violated.
 - Clicking the RESET button clears all four input fields simultaneously by setting their text to empty strings.
-- Upon successful validation, the application transitions to `SecondActivity` via an `Intent`, confirming that activity navigation works only after all fields pass validation.
+- Upon successful validation, the application transitions to SecondActivity via an Intent, confirming that activity navigation works only after all fields pass validation.
 
 ---
 
 ### Conclusions
 
-This experiment demonstrates the construction of an interactive Login/Registration Form on Android using core GUI components. The `EditText` widget, combined with appropriate `inputType` attributes, ensures type-safe data entry, while the `setError()` mechanism provides immediate, contextual feedback to the user. The separation of UI definition (XML) from application logic (Java) adheres to the MVC pattern, and the use of explicit `Intent` for activity transitions showcases Android's navigation model. Overall, the experiment validates that Android's native widget toolkit is sufficient for building robust, validated data-entry forms.
+This experiment demonstrates the construction of an interactive Login/Registration Form on Android using core GUI components. The EditText widget, combined with appropriate inputType attributes, ensures type-safe data entry, while the setError() mechanism provides immediate, contextual feedback to the user. The separation of UI definition (XML) from application logic (Java) adheres to the MVC pattern, and the use of explicit Intent for activity transitions showcases Android's navigation model. Overall, the experiment validates that Android's native widget toolkit is sufficient for building robust, validated data-entry forms.
 
 ---
 
 ### Questions of Curiosity
 
 **1. What is the use of EditText?**
-`EditText` is an Android widget that provides an editable text field. It extends `TextView` and allows the user to type input directly. Attributes such as `inputType` can restrict the kind of input accepted (e.g., email, password, number).
+EditText is an Android widget that provides an editable text field. It extends TextView and allows the user to type input directly. Attributes such as inputType can restrict the kind of input accepted (e.g., email, password, number).
 
 **2. Why is inputType used in EditText?**
-The `inputType` attribute specifies the type of data the user is expected to enter. It controls two things: the soft keyboard layout shown to the user (e.g., an `@` key for email) and the display format (e.g., masking characters for passwords). This improves both usability and input correctness.
+The inputType attribute specifies the type of data the user is expected to enter. It controls two things: the soft keyboard layout shown to the user (e.g., an @ key for email) and the display format (e.g., masking characters for passwords). This improves both usability and input correctness.
 
 **3. What is the function of a Button in Android?**
-A `Button` is a clickable UI component that triggers an action when pressed. It is typically used to submit forms, navigate between activities, or invoke any method bound through an event listener.
+A Button is a clickable UI component that triggers an action when pressed. It is typically used to submit forms, navigate between activities, or invoke any method bound through an event listener.
 
 **4. What is an OnClickListener?**
-`OnClickListener` is an interface in the `android.view.View` class. It defines a single callback method `onClick(View v)` that is invoked when the user taps the associated view. It is the standard mechanism for handling click events on buttons and other interactive elements.
+OnClickListener is an interface in the android.view.View class. It defines a single callback method onClick(View v) that is invoked when the user taps the associated view. It is the standard mechanism for handling click events on buttons and other interactive elements.
 
 **5. What is input validation?**
 Input validation is the process of verifying that user-supplied data meets predefined criteria before the application processes it. Common checks include non-empty fields, minimum/maximum length, format matching (e.g., email regex), and data-type enforcement. It prevents erroneous or malicious data from reaching the backend.
 
 **6. What happens when the RESET button is clicked?**
-The `OnClickListener` bound to the RESET button calls `setText("")` on all four `EditText` fields, effectively clearing every input field and restoring the form to its initial blank state.
+The OnClickListener bound to the RESET button calls setText("") on all four EditText fields, effectively clearing every input field and restoring the form to its initial blank state.
 
 **7. What is the role of LinearLayout?**
-`LinearLayout` is a view group that arranges its child views in a single direction — either horizontally or vertically. It provides a simple, predictable stacking model, and supports `layout_weight` for proportional sizing of child elements.
+LinearLayout is a view group that arranges its child views in a single direction — either horizontally or vertically. It provides a simple, predictable stacking model, and supports layout_weight for proportional sizing of child elements.
 
 ---
 

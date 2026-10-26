@@ -29,7 +29,7 @@ follow = {nt: set() for nt in nt_list}; follow[nt_list[0]].add('$')
 for _ in range(len(nt_list)):
     for head, body in prods:
         for i, char in enumerate(body):
-            if char.isupper():
+            if char in nt_list:
                 rest = body[i+1:]
                 if not rest: follow[char] |= follow[head]
                 else:
@@ -41,7 +41,7 @@ table = {nt: {t: "" for t in t_list} for nt in nt_list}
 is_ll1 = True
 
 for head, body in prods:
-    f_body = get_first(body[0] if body != 'e' else {'e'})
+    f_body = get_first(body[0]) if body != 'e' else {'e'}
 
     for s in f_body:
         if s != 'e':
@@ -50,7 +50,7 @@ for head, body in prods:
         else:
             for f_s in follow[head]:
                 if table[head][f_s]: is_ll1 = False
-                table[head][s] = f"{head}->{body}"
+                table[head][f_s] = f"{head}->{body}"
 
 
 print("\nFIRST:", first, "\nFOLLOW:", follow)

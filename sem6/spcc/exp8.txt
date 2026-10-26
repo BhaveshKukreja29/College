@@ -1,0 +1,117 @@
+Experiment No. 08
+Implement Code Generation Algorithm
+Aim: 
+To write a program to implement a code generation algorithm that converts intermediate representation (such as three-address code) into target machine code or assembly-like instructions.
+Prerequisite:
+
+Programming Language (C/C++/ Java/ Python)
+
+Course Outcome: 
+             
+After successful completion of this experiment students will be able to Identify and Validate tokens for given high level language and Implement synthesis phase of compiler.
+Software used: 
+    • Operating System: Windows / Linux 
+    • Compiler: GCC / javac
+    • Text editor (gedit / DevC++/Visual Studio Code)
+Theory: 
+Code Generation is the final phase of a compiler. It converts the intermediate code produced by earlier phases (like lexical analysis, parsing, and intermediate code generation) into target machine code.
+The main objectives of code generation are:
+    • Produce correct target code.
+    • Use efficient instructions.
+    • Optimize register usage.
+Typically, the input to the code generator is Three Address Code (TAC) such as:
+t1 = a + b
+t2 = t1 * c
+d = t2
+The output could be assembly-like instructions:
+MOV R1, a
+ADD R1, b
+MOV R2, c
+MUL R1, R2
+MOV d, R1
+
+Algorithm:
+For each statement x = y op z:
+    1. Use getreg() to select a register L to store the result.
+    2. Find the current location of y from the address descriptor.
+    3. If y is not already in L, generate instruction:
+ MOV y → L
+    4. Find the current location of z from the address descriptor.
+    5. Generate the operation instruction:
+ OP z → L
+ (Example: ADD, SUB, MUL, DIV)
+    6. Store the result x in location L and update the address descriptor of x.
+    7. Remove x from other locations except L.
+    8. Update the register descriptor so registers no longer store y or z if they are not needed.
+    9. If y or z:
+
+        ◦ have no next use
+        ◦ are not live after the block
+        ◦ and are in registers
+    10. then free those registers.
+
+Procedure:
+    1. Open a C programming environment such as Turbo C / GCC / Code::Blocks.
+    2. Create a new file and save it with the .c extension (for example: codegen.c).
+    3. Write the C program for the Code Generation Algorithm in the editor.
+    4. Save the program file.
+    5. Compile the program using the compiler.
+ Example command in GCC:
+ gcc codegen.c -o codegen
+    6. If there are syntax errors, correct them and recompile the program.
+    7. Run the compiled program.
+ Example command:
+ ./codegen
+    8. Enter the required inputs such as operands and operators when prompted.
+    9. Observe the generated target code (assembly-like instructions) displayed on the screen.
+    10. Verify the output and terminate the program.
+Tasks:
+    1. Write a C program to implement the Code Generation Algorithm.
+    2. Accept a three-address statement of the form x = y op z as input.
+    3. Generate the corresponding target code instructions.
+    4. Display the generated assembly-like instructions such as MOV, ADD, SUB, MUL, DIV.
+    5. Verify the output for different operators.
+(TO BE COMPLETED BY STUDENTS)
+(Students must submit the soft copy as per following segments within two hours of the respective practical. The soft copy must be uploaded on the MsTeams at the end of the practical. Failure in submitting the soft copy may lead to reduction of marks.)
+Roll No.:
+Name:
+Program:
+Division:
+Semester:
+Batch :
+Date of Experiment: 
+Date of Submission: 
+Grade :
+
+
+Program:
+ 
+[Execute the program and Paste it here]
+
+Output Screenshots:
+
+[Take screenshots of output and Paste it here]
+
+Observations:
+
+[Write Observations here
+Observations are measurable and descriptive pieces of information collected during or after the execution of an experiment to support conclusions or findings.
+For Eg: The program successfully generates assembly-like target code instructions for the given input statement.]
+
+Conclusions:
+[Write Conclusions here]
+
+
+Question of Curiosity: 
+[Answers to be handwritten or typed here]
+    1. What is the purpose of a code generator?
+    2. What is a register descriptor?
+    3. What is an address descriptor?
+    4. What is the function of getreg() in code generation?
+    5. Why are registers used in code generation?
+    6. What are the common target instructions used in code generation?
+    7. What is the output of the code generation phase?
+
+ References: 
+    1. Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D., Compilers: Principles, Techniques, and Tools, 2nd Edition, Pearson Education.
+    2. Alfred V. Aho and Jeffrey D. Ullman, Principles of Compiler Design, Addison-Wesley.

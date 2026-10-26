@@ -1,0 +1,224 @@
+Experiment No. 07 
+
+Code Optimization using Common Subexpression Elimination 
+
+Aim:  
+
+To implement code optimization using Common Subexpression Elimination technique to reduce redundant computations in intermediate code. 
+
+Prerequisite: 
+
+ 
+
+Programming Language (C/C++/ Java/ Python) 
+
+ 
+
+Course Outcome:  
+
+              
+
+After successful completion of this experiment students will be able to identify and Validate tokens for given high level language and Implement synthesis phase of compiler. 
+
+Software used:  
+
+    Operating System: Windows / Linux  
+
+    Compiler: GCC / javac 
+
+    Text editor (gedit / DevC++/Visual Studio Code) 
+
+Theory:  
+
+Code optimization is a compiler design technique used to improve the performance and efficiency of generated code without changing its output. One important optimization method is Common Subexpression Elimination. 
+
+A common subexpression is an expression that appears more than once in a program and evaluates to the same value, provided the variables involved are not modified between occurrences. 
+
+Example: 
+
+t1 = a + b 
+
+t2 = a + b 
+
+t3 = t1 * c 
+
+Here, a + b is computed twice. This is redundant. 
+
+After applying Common Subexpression Elimination: 
+
+t1 = a + b 
+
+t2 = t1 
+
+t3 = t1 * c 
+
+Thus, repeated evaluation is avoided, improving efficiency. 
+
+Common Subexpression Elimination reduces: 
+
+    Execution time 
+
+    Code size 
+
+    CPU usage 
+
+It is commonly applied on Three Address Code (TAC) during intermediate code optimization. 
+
+Algorithm: 
+
+    Input the intermediate code (Three Address Code). 
+
+    For each expression: 
+
+    Check if the same expression was previously computed. 
+
+    Ensure none of its operands were modified after its first computation. 
+
+    If found: 
+
+    Replace the repeated expression with the previously computed temporary variable. 
+
+    Generate optimized code. 
+
+Procedure: 
+
+    Open a C compiler (e.g., GCC / Turbo C). 
+
+    Type the program for common subexpression elimination. 
+
+    Compile the program. 
+
+    Execute the program. 
+
+    Enter two expressions to check for redundancy. 
+
+    Observe the optimized output. 
+
+Sample Input 
+
+Enter first expression: a+b 
+
+Enter second expression: a+b 
+
+Sample Output 
+
+Common Subexpression Found! 
+
+Optimized Code: 
+
+t1 = a+b 
+
+t2 = t1 
+
+ 
+
+Tasks: 
+
+Implement a program in C (or any preferred language) that detects common subexpressions and replaces redundant computations with previously computed temporary variables. Compile and run the program using a suitable compiler. Test the program with at least three different input cases (with and without common subexpressions), compare the original and optimized code, and record the results and observations in the lab record. Finally, conclude how CSE improves code efficiency. 
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+(TO BE COMPLETED BY STUDENTS) 
+
+(Students must submit the soft copy as per following segments within two hours of the respective practical. The soft copy must be uploaded on the MsTeams at the end of the practical. Failure in submitting the soft copy may lead to reduction of marks.) 
+
+Roll No.: 
+	
+
+Name: 
+
+Program: 
+	
+
+Division: 
+
+Semester: 
+	
+
+Batch : 
+
+Date of Experiment:  
+	
+
+Date of Submission:  
+
+Grade : 
+	
+
+ 
+
+ 
+
+Program: 
+
+  
+
+[Execute the program and Paste it here] 
+
+ 
+
+Output Screenshots: 
+
+ 
+
+[Take screenshots of output and Paste it here] 
+
+ 
+
+Observations: 
+
+ 
+
+[Write Observations here 
+
+Observations are measurable and descriptive pieces of information collected during or after the execution of an experiment to support conclusions or findings. 
+
+For Eg: The program successfully identifies repeated expressions in the given Three Address Code (TAC). 
+
+When identical expressions are entered without modification of operands, the program replaces the redundant computation with a previously stored temporary variable.] 
+
+ 
+
+Conclusions: 
+
+[Write Conclusions here] 
+
+ 
+
+ 
+
+Question of Curiosity:  
+
+[Answers to be handwritten or typed here] 
+
+    What is code optimization? 
+
+    Define common subexpression. 
+
+    What is Three Address Code? 
+
+    Why is optimization required in compilers? 
+
+    What is the difference between machine-independent and machine-dependent optimization? 
+
+ 
+
+ References:  
+
+    Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D., Compilers: Principles, Techniques, and Tools, 2nd Edition, Pearson Education. 
+
+    Alfred V. Aho and Jeffrey D. Ullman, Principles of Compiler Design, Addison-Wesley. 
+
+ 
